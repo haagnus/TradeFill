@@ -66,10 +66,10 @@ end
 
 function handlers.D(contentContainer, path)
     if path[2] then
-        TradeFill:Tradelog(contentContainer, path[2])
+        TradeFill:TradeLog(contentContainer, path[2])
     end
 
-    TradeFill:TradelogTotal(contentContainer)
+    TradeFill:TradeLogTotal(contentContainer)
 end
 
 -- =========================

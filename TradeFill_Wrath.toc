@@ -28,12 +28,16 @@ Data/Spellrank/TBC.lua
 Data/Spellrank/Wrath.lua
 Data/Items.lua
 Data/Limit.lua
-Data/Tradelog.lua
+Data/TradeLog.lua
 
-## Modules - Trade Rules
-Modules/TradeRules/General.lua
-Modules/TradeRules/Items.lua
-Modules/TradeRules/Evaluator.lua
+## Services
+Services/PlayerService.lua
+Services/LimitService.lua
+
+## Rules
+Rules/General.lua
+Rules/Items.lua
+Rules/Evaluator.lua
 
 ## Modules - Trade Flow
 Modules/Trade.lua
@@ -50,22 +54,22 @@ Modules/TradeWindowButtons.lua
 Modules/Minimap.lua
 
 ## UI
-UI/Utils.lua
-UI/Helper.lua
-UI/Widgets.lua
+UI/Shared/Utils.lua
+UI/Shared/Helper.lua
+UI/Shared/Widgets.lua
 UI/UIManager.lua
 
-UI/Config/General.lua
-UI/Config/Bags.lua
+UI/General/General.lua
+UI/General/BagSettings.lua
 
-UI/TradeRules/Allowed.lua
-UI/TradeRules/Requirements.lua
-UI/TradeRules/Rules.lua
-UI/TradeRules/Ignore/Players.lua
-UI/TradeRules/Ignore/Guilds.lua
+UI/TradingRules/Allowed.lua
+UI/TradingRules/Requirements.lua
+UI/TradingRules/Rules.lua
+UI/TradingRules/Ignore/Players.lua
+UI/TradingRules/Ignore/Guilds.lua
 
-UI/Trade/Item.lua
-UI/Trade/Stack.lua
-UI/Trade/Limit.lua
+UI/TradingSetup/Item.lua
+UI/TradingSetup/Stack.lua
+UI/TradingSetup/Limit.lua
 
-UI/Tradelog/Tradelog.lua
+UI/TradeLog/Log.lua

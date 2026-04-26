@@ -16,7 +16,6 @@ end
 function TradeRulesGeneral:OnInitialize()
     self.registered = {}
 
-    -- AutoFill
     self:Register("AutoFill", function(ctx)
         local set = TradeFill.db.profile.settings
 
@@ -30,7 +29,6 @@ function TradeRulesGeneral:OnInitialize()
         return true
     end)
 
-    -- Allowed player types
     self:Register("AllowedPlayers", function(ctx)
         local set = TradeFill.db.profile.settings
         local groupType = ctx.state.groupType
@@ -85,7 +83,6 @@ function TradeRulesGeneral:OnInitialize()
         return false
     end)
 
-    -- Guild
     self:Register("Guild", function(ctx)
         local set = TradeFill.db.profile.settings
 
@@ -103,13 +100,12 @@ function TradeRulesGeneral:OnInitialize()
         return true
     end)
 
-    -- Max level
     self:Register("Level", function(ctx)
         local set = TradeFill.db.profile.settings
 
         if not set.filter.level then return true end
 
-        local max   = GetMaxPlayerLevel()
+        local max = GetMaxPlayerLevel()
         local level = ctx.state.target.level
 
         if level < max then
@@ -125,7 +121,6 @@ function TradeRulesGeneral:OnInitialize()
         return true
     end)
 
-    -- Master Looter
     self:Register("MasterLooter", function(ctx)
         local set = TradeFill.db.profile.settings
 
@@ -136,7 +131,7 @@ function TradeRulesGeneral:OnInitialize()
         local newLootMaster =
             mlRaidID and GetRaidRosterInfo(mlRaidID) or
             (mlPartyID == 0 and UnitName("player")) or
-            (mlPartyID and UnitName("party"..mlPartyID))
+            (mlPartyID and UnitName("party" .. mlPartyID))
 
         if (lootmethod == "master" or lootmethod == 2) and UnitName("player") == newLootMaster then
             return TradeRulesGeneral:Fail(string.format(
@@ -148,7 +143,6 @@ function TradeRulesGeneral:OnInitialize()
         return true
     end)
 
-    -- Ignore Players
     self:Register("Players", function(ctx)
         for name in string.gmatch(TradeFill.db.profile.settings.filter.players, "[^\n]+") do
             if string.lower(name) == string.lower(ctx.state.target.name) then
@@ -162,40 +156,34 @@ function TradeRulesGeneral:OnInitialize()
         return true
     end)
 
-    -- Ignore Guilds
     self:Register("Guilds", function(ctx)
         local guild = ctx.state.target.guild
 
         if not guild then return true end
 
-        if guild then
-            for name in string.gmatch(TradeFill.db.profile.settings.filter.guilds, "[^\n]+") do
-                if string.lower(name) == string.lower(guild) then
-                    return TradeRulesGeneral:Fail(string.format(
-                        TF.Loc["MESSAGE_IGNORE_GUILDS"],
-                        TradeFill:SetColor(guild, TF.colors.filter.guild)
-                    ))
-                end
+        for name in string.gmatch(TradeFill.db.profile.settings.filter.guilds, "[^\n]+") do
+            if string.lower(name) == string.lower(guild) then
+                return TradeRulesGeneral:Fail(string.format(
+                    TF.Loc["MESSAGE_IGNORE_GUILDS"],
+                    TradeFill:SetColor(guild, TF.colors.filter.guild)
+                ))
             end
-
-            return true
         end
+
+        return true
     end)
 end
 
--- Register a trade rule
 function TradeRulesGeneral:Register(name, func)
     table.insert(self.registered, { name = name, func = func })
 end
 
--- Fail helper (prints message + stops execution)
 function TradeRulesGeneral:Fail(msg, ...)
     local panel = TradeFill:GetModule("TradingStatusPanel")
     panel:AddMessage(msg, ...)
     return false
 end
 
--- Run all trade rules
 function TradeRulesGeneral:CheckAll(context)
     local allOk = true
 
@@ -210,4 +198,3 @@ function TradeRulesGeneral:CheckAll(context)
     return allOk
 end
 
-return TradeRulesGeneral

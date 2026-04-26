@@ -27,6 +27,7 @@ function TradeController:ResolveModules()
     self.inventory = TradeFill:GetModule("InventoryManager")
     self.executor = TradeFill:GetModule("TradeExecutor")
     self.evaluator = TradeFill:GetModule("TradeRulesEvaluator")
+    self.limitService = TradeFill:GetModule("LimitService")
     self.status = TradeFill:GetModule("TradingStatusPanel")
     self.trade = TradeFill:GetModule("Trade")
     self.buttons = TradeFill:GetModule("TradeWindowButtons")
@@ -131,8 +132,7 @@ function TradeController:UpdateTradeLimits()
                 local configuredItem = TradeFill:GetItem(configuredSlot)
 
                 if configuredItem and (tonumber(configuredItem.limit) or 0) > 0 and tradedItem.name == configuredItem.name then
-                    local currentLimit = TradeFill:GetLimit(targetName, configuredSlot)
-                    TradeFill:SetLimit(targetName, configuredSlot, currentLimit + 1)
+                    self.limitService:Increment(targetName, configuredSlot)
                 end
             end
         end

@@ -62,9 +62,9 @@ L["INFO_BAGS"] = "Open bags in the trade window"
 L["INFO_BAGS_DESC"] = "Select which bags should be opened when the trade window is active"
 
 --------------------------------------------------------
--- Trade Rules
+-- Trading Rules
 --------------------------------------------------------
-L["GROUP_TRADING_RULES"] = "Trade Rules"
+L["GROUP_TRADING_RULES"] = "Trading Rules"
 
 --------------------------------------------------------
 -- Allowed Players

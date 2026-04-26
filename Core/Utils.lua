@@ -30,38 +30,19 @@ function TradeFill:ColorizeUnitNameByClass(classFile, fullName)
 end
 
 function TradeFill:GetFullUnitName(unit)
-    local name, realm = UnitFullName(unit)
-
-    if not name then
-        return GetUnitName(unit, true)
-    end
-
-    if realm and realm ~= "" then
-        return name .. "-" .. realm
-    end
-
-    return name
+    return self:GetModule("PlayerService"):GetFullUnitName(unit)
 end
 
 function TradeFill:SetClass(classFile)
-    local className = LOCALIZED_CLASS_NAMES_MALE[classFile]
-    return self:ColorizeByClass(classFile, className)
+    return self:GetModule("PlayerService"):FormatClass(classFile)
 end
 
 function TradeFill:SetName(ctx)
-    local name = ctx.target.name
-    local class = ctx.target.class.file
-    return self:ColorizeByClass(class, name)
+    return self:GetModule("PlayerService"):FormatName(ctx)
 end
 
 function TradeFill:GroupType()
-    if IsInRaid() then
-        return "raid"
-    elseif IsInGroup() then
-        return "party"
-    else
-        return "ungrouped"
-    end
+    return self:GetModule("PlayerService"):GetGroupType()
 end
 
 function TradeFill:GetSpell(id, level)

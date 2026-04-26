@@ -6,21 +6,13 @@ local TradeSession = TradeFill:NewModule("TradeSession")
 function TradeSession:Initialize()
     TF:ResetState()
 
-    local className, classFile = UnitClass("npc")
+    local playerService = TradeFill:GetModule("PlayerService")
 
-    TF.state.target = {
-        name = GetUnitName("npc"),
-        fullName = TradeFill:GetFullUnitName("npc"),
-        guild = GetGuildInfo("npc"),
-        level = UnitLevel("npc"),
-        class = {
-            name = className,
-            file = classFile
-        }
-    }
+    TF.state.target = playerService:GetTargetContext()
 
-    local mode = TradeFill:GroupType()
+    local mode = playerService:GetGroupType()
     local db = TradeFill.db.profile
+    local classFile = TF.state.target.class.file
 
     TF.state.active = true
     TF.state.groupType = mode

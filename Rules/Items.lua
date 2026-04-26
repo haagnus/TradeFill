@@ -24,21 +24,20 @@ end
 
 function TradeRulesItems:OnInitialize()
     self.registered = {}
+    self.limitService = TradeFill:GetModule("LimitService")
 
     self:Register("Limit", function(ctx)
         if not ctx.effective then
             return false
         end
 
-        local itemLimit = tonumber(ctx.item.limit)
+        local itemLimit = tonumber(ctx.item.limit) or 0
 
         if itemLimit == 0 then
             return true
         end
 
-        local limit = ctx.limit
-
-        if limit >= itemLimit then
+        if self.limitService:HasReachedLimit(ctx.targetName, ctx.tradeSlot, itemLimit) then
             local link = GetContextLink(ctx)
 
             return TradeRulesItems:Fail(string.format(
@@ -88,46 +87,38 @@ function TradeRulesItems:OnInitialize()
         local link = GetContextLink(ctx)
         local groupType = ctx.state.groupType
 
-        if groupType == "ungrouped" then
-            if ctx.stack == 0 then
-                return TradeRulesItems:Fail(string.format(
-                    TF.Loc["MESSAGE_STACK_UNGROUPED"],
-                    link,
-                    TradeFill:SetColor(TF.Loc["UNGROUPED"], TF.colors.trade.ungrouped)
-                ))
-            end
+        if groupType == "ungrouped" and ctx.stack == 0 then
+            return TradeRulesItems:Fail(string.format(
+                TF.Loc["MESSAGE_STACK_UNGROUPED"],
+                link,
+                TradeFill:SetColor(TF.Loc["UNGROUPED"], TF.colors.trade.ungrouped)
+            ))
         end
 
-        if groupType == "party" then
-            if ctx.stack == 0 then
-                return TradeRulesItems:Fail(string.format(
-                    TF.Loc["MESSAGE_STACK_PARTY"],
-                    link,
-                    TradeFill:SetColor(TF.Loc["PARTY"], TF.colors.trade.party)
-                ))
-            end
+        if groupType == "party" and ctx.stack == 0 then
+            return TradeRulesItems:Fail(string.format(
+                TF.Loc["MESSAGE_STACK_PARTY"],
+                link,
+                TradeFill:SetColor(TF.Loc["PARTY"], TF.colors.trade.party)
+            ))
         end
 
-        if groupType == "raid" then
-            if ctx.stack == 0 then
-                return TradeRulesItems:Fail(string.format(
-                    TF.Loc["MESSAGE_STACK_RAID"],
-                    link,
-                    TradeFill:SetColor(TF.Loc["RAID"], TF.colors.trade.raid)
-                ))
-            end
+        if groupType == "raid" and ctx.stack == 0 then
+            return TradeRulesItems:Fail(string.format(
+                TF.Loc["MESSAGE_STACK_RAID"],
+                link,
+                TradeFill:SetColor(TF.Loc["RAID"], TF.colors.trade.raid)
+            ))
         end
 
         return true
     end)
 end
 
--- Register a trade rule
 function TradeRulesItems:Register(name, func)
     table.insert(self.registered, { name = name, func = func })
 end
 
--- Fail helper (prints message + stops execution)
 function TradeRulesItems:Fail(msg, ...)
     local formatted = FormatMessage(msg, ...)
 
@@ -146,7 +137,6 @@ function TradeRulesItems:Fail(msg, ...)
     return false
 end
 
--- Run all trade rules
 function TradeRulesItems:CheckAll(context)
     local allOk = true
 
@@ -169,4 +159,3 @@ function TradeRulesItems:EndEvaluation()
     self.pendingMessages = nil
 end
 
-return TradeRulesItems

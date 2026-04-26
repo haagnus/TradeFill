@@ -73,7 +73,7 @@ TradeFill's settings window is organized into these sections:
 
 - `General`: Toggle autofill and hide optional UI elements.
 - `Bag Settings`: Choose which bags open while trading.
-- `Trade Rules`: Configure allowed players, requirements, special rules, ignored players, and ignored guilds.
+- `Trading Rules`: Configure allowed players, requirements, special rules, ignored players, and ignored guilds.
 - `Trading Setup`: Select trade items and stack settings for each class/group setup.
 - `Trade Log`: Review recorded trade history.
 
@@ -88,8 +88,10 @@ TradeFill's settings window is organized into these sections:
 ```text
 Core/       Addon bootstrap, saved variable setup, shared actions, state, and utilities
 Data/       Default data, classes, spell ranks, item setup, limits, and trade log data
-Modules/    Trade flow, inventory scanning, trade rules, minimap integration, and trade-window UI
-UI/         AceGUI settings window and configuration screens
+Services/   Reusable player and limit helpers used by rules and modules
+Rules/      Trade eligibility and item validation rules
+Modules/    Trade flow, inventory scanning, minimap integration, and trade-window UI
+UI/         AceGUI settings window, shared UI helpers, and settings screens
 Locales/    Localization files
 Images/     Addon icon textures
 Libs/       Bundled addon libraries
@@ -103,3 +105,7 @@ TradeFill bundles the libraries it needs in `Libs/`, including Ace3, LibDataBrok
 
 Mafkees - Pyrewood Village
 
+
+## Contact
+
+Discord: haagnus

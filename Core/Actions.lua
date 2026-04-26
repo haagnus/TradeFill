@@ -34,7 +34,7 @@ function TradeFill:Off()
 end
 
 function TradeFill:ResetLimit()
-    self.limit:ResetProfile()
+    self:GetModule("LimitService"):Reset()
 
     DEFAULT_CHAT_FRAME:AddMessage(string.format(
         TF.Loc["MESSAGE_RESET_LIMIT"],

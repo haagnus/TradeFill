@@ -40,7 +40,8 @@ function Evaluator:EvaluateItems()
                 state = state,
                 settings = settings,
                 stack = TradeFill:GetActiveGroupStack(tradeSlot),
-                limit = TradeFill:GetLimit(name, tradeSlot)
+                targetName = name,
+                tradeSlot = tradeSlot,
             }
 
             isValid = self.itemTradeRules:CheckAll(context)
@@ -53,3 +54,4 @@ function Evaluator:EvaluateItems()
 
     return results
 end
+

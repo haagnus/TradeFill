@@ -74,7 +74,7 @@ local function renderTotalTab(self, container, totalItems, totalMoney)
     end
 end
 
-function TradeFill:TradelogTotal(frame)
+function TradeFill:TradeLogTotal(frame)
     local tradelogModule = self:GetModule("TradeLog")
     local totals = tradelogModule:BuildTotals()
 
@@ -168,7 +168,7 @@ function TradeFill:TradelogTotal(frame)
     C_Timer.After(0, updateTabHolderHeight)
 end
 
-function TradeFill:Tradelog(frame, timeStamp)
+function TradeFill:TradeLog(frame, timeStamp)
     local tradelogModule = self:GetModule("TradeLog")
     local contentGroup = self:ContentGroup(AceGUI, frame)
     contentGroup:SetUserData("timeStamp", timeStamp)
@@ -179,12 +179,12 @@ function TradeFill:Tradelog(frame, timeStamp)
     local firstGroup = self:Group(AceGUI, "InlineGroup", contentGroup)
     firstGroup:SetTitle(playerName)
 
-    self:GetTradelogEntries(AceGUI, firstGroup, timeStamp, "tradePlayer")
+    self:GetTradeLogEntries(AceGUI, firstGroup, timeStamp, "tradePlayer")
 
     local secondGroup = self:Group(AceGUI, "InlineGroup", contentGroup)
     secondGroup:SetTitle(targetName)
 
-    self:GetTradelogEntries(AceGUI, secondGroup, timeStamp, "tradeTarget")
+    self:GetTradeLogEntries(AceGUI, secondGroup, timeStamp, "tradeTarget")
 
     local deleteButton = AceGUI:Create("Button")
     deleteButton:SetText(TF.Loc["BUTTON_DELETE_DAY"])
@@ -210,7 +210,7 @@ function TradeFill:Tradelog(frame, timeStamp)
     frame.frame:SetClipsChildren(true)
 end
 
-function TradeFill:GetTradelogEntries(AceGUIInstance, widget, timeStamp, unit)
+function TradeFill:GetTradeLogEntries(AceGUIInstance, widget, timeStamp, unit)
     local tradelogModule = self:GetModule("TradeLog")
 
     for _, entry in ipairs(tradelogModule:GetSortedEntries(timeStamp, unit)) do

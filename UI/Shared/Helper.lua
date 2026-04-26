@@ -185,9 +185,9 @@ function TradeFill:SetBag(key, value)
 end
 
 function TradeFill:GetLimit(name, key)
-    return TradeFill.limit.profile[name][NormalizeKey(key)]
+    return self:GetModule("LimitService"):Get(name, key)
 end
 
 function TradeFill:SetLimit(name, key, value)
-    TradeFill.limit.profile[name][NormalizeKey(key)] = value
+    self:GetModule("LimitService"):Set(name, key, value)
 end

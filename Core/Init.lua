@@ -77,7 +77,7 @@ function TradeFill:OnEnable()
     RegisterChatCommands(self)
 
     if self:GetTrade("refresh") then
-        self.limit:ResetProfile()
+        self:GetModule("LimitService"):Reset()
     end
 
     DEFAULT_CHAT_FRAME:AddMessage(

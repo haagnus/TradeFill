@@ -153,7 +153,7 @@ function MinimapModule:GetLeftClickText()
     if TF.frame ~= nil and TF.frame:IsVisible() then
         return string.format(
             TF.Loc["MINIMAP_LEFT_CLICK_CLOSE"],
-            TF.Loc["TEXT_RIGHT_CLICK"],
+            TF.Loc["TEXT_CLICK"],
             TradeFill:SetColor(TF.Loc["TEXT_TO"], TF.colors.minimap.text),
             TradeFill:SetColor(TF.Loc["TEXT_CLOSE"], TF.colors.minimap.close),
             TradeFill:SetColor(TF.Loc["TEXT_THE_OPTION_MENU"], TF.colors.minimap.text)
@@ -161,7 +161,7 @@ function MinimapModule:GetLeftClickText()
     else
         return string.format(
             TF.Loc["MINIMAP_LEFT_CLICK_OPEN"],
-            TF.Loc["TEXT_RIGHT_CLICK"],
+            TF.Loc["TEXT_CLICK"],
             TradeFill:SetColor(TF.Loc["TEXT_TO"], TF.colors.minimap.text),
             TradeFill:SetColor(TF.Loc["TEXT_OPEN"], TF.colors.minimap.open),
             TradeFill:SetColor(TF.Loc["TEXT_THE_OPTION_MENU"], TF.colors.minimap.text)

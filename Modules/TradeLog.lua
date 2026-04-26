@@ -82,8 +82,8 @@ function TradeLog:BuildTotals()
         table.insert(bucket, entry)
     end
 
-    local function collectUnitTradelog(tradelogEntry, unitKey, totalKey)
-        for tradedSlot, trade in pairs(tradelogEntry[unitKey]) do
+    local function collectUnitTradeLog(tradeLogEntry, unitKey, totalKey)
+        for tradedSlot, trade in pairs(tradeLogEntry[unitKey]) do
             if tradedSlot == "money" and trade ~= "" then
                 totals.money[totalKey] = totals.money[totalKey] + trade
             end
@@ -94,9 +94,9 @@ function TradeLog:BuildTotals()
         end
     end
 
-    for _, tradelogEntry in pairs(TradeFill.tradelog.profile) do
-        collectUnitTradelog(tradelogEntry, "tradePlayer", "player")
-        collectUnitTradelog(tradelogEntry, "tradeTarget", "target")
+    for _, tradeLogEntry in pairs(TradeFill.tradelog.profile) do
+        collectUnitTradeLog(tradeLogEntry, "tradePlayer", "player")
+        collectUnitTradeLog(tradeLogEntry, "tradeTarget", "target")
     end
 
     return totals
