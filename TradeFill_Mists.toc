@@ -1,7 +1,7 @@
 ## Interface: 50503
-## Title: TradeFill |c8788EEffv2.0.0|r
+## Title: TradeFill |c8788EEffv2.0.1|r
 ## Notes: Automatically fills the trade window with selected items and keeps track of your trade log
-## Version: 2.0.0
+## Version: 2.0.1
 ## Author: Mafkees - Pyrewood Village
 ## IconTexture: Interface\AddOns\TradeFill\Images\Spell_Nature_Polymorph_Cow.tga
 ## SavedVariables: TradeFillDB TradeFillHistoryDB TradeFillLimitDB
