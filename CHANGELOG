@@ -1,0 +1,245 @@
+Version: 2.0.0
+	Complete addon rewrite with a modern modular structure for better maintainability
+	Added custom stack count and stack size options for:
+		"Ungrouped"
+		"Party Members"
+		"Raid Members"
+	Added "Bag Opener", allowing bags to open while trading and close automatically when finished
+	Added a "Trading Status Panel" that shows all messages related to trading in the trade window
+	Added option to hide "Trading Status Panel"
+	"Loot Master" now works as intended
+	Removed messages from "Split and restack"
+	Updated slashcommands:
+		/tf
+		/tf on
+		/tf off
+		/tf limit
+
+Version: 1.4.8
+	Updated the "Use Correct Item" option to properly handle enabling and disabling
+		Users must have ‘Show All Spell Ranks’ enabled in the Spellbook for it to work
+	Fixed "Show Only Full Stacks" where items wouldn’t appear in the dropdown if a previous stack was not full
+
+Version: 1.4.7
+	Improved stack splitting with optimized inventory scanning for better performance
+
+Version: 1.4.6
+	Bump for 20505
+
+Version: 1.4.5
+	Updated spell id for Conjured Mountain Spring Water, Conjured Glacier Water and Conjured Croissant
+
+Version: 1.4.4
+	Trades the appropriate level of water, food, or healthstone for:
+		WoW Classic
+		WoW TBC
+		WoW Wrath
+	Added buttons to the trade window to create water, food, or healthstone
+
+Version: 1.4.3
+	Switched minimap button interactions: 'Click' and 'Right-Click' functions are now reversed
+	Second condition "Guild members" is wroking again
+	Disable empty tab "Trade"
+	Added option "Clear trade", Clear the trade window when the other player wants to trade items
+	Option:
+		Clear trade: default on
+		Split and restack messages: default off
+	Updated button interaction:
+		Disable button when there are no stacks assigned
+		Don't try to split new stack when there is no stack number assigned for the class
+		"Trade buttons" hide all buttons
+	Support for patch 5.5.0 (mist)
+	Added Hide message tab:
+		"All" hide all chat messages
+		"Trading conditions" hide messages about trading conditions
+		"Split and restack" hide message about splitting and restacking
+
+Version: 1.4.2
+	Drag-and-drop trade works again
+
+Version: 1.4.1
+	Update Tradelog for different localization clients
+	Improved stack splitting and restacking
+	Add Option "Split and restack messages". Hides the status message related to splitting and restacking
+
+Version: 1.4.0
+	For retail fixed item section
+
+Version: 1.3.9
+	Bump for 11506
+
+Version: 1.3.8
+	Bump for 11505 and 110007
+
+Version: 1.3.7
+	Updated Libs library
+	Changed tooltip anchor point right
+	Update tree width to default size
+
+Version: 1.3.6
+	Bump for 11504 and 11505
+	
+Version: 1.3.5
+	Bump for 11503
+
+Version: 1.3.4
+	Stack splitter added split stack to your prefer stack size
+	Restack stack back to there previous slot
+	Message have been updated now also show stack size
+
+Version: 1.3.3
+	Minor changes for encapsulate functions
+	On login, check the stored data for the items you have selected to trade. If any data is missing, reset these items
+	Tradelog from older versions will now also store and show an item tooltip when the item data is available. This data is available when you have the item in your backpack or bank storage
+
+Version: 1.3.2
+	User Interface Overhaul
+		Complete redesign of the user interface for improved usability and aesthetics
+		Enhanced navigation with a more intuitive layout
+	Module Updates
+		Updated all modules to the latest versions for better performance and stability
+		Optimized code for faster load times and smoother operation
+	Minor Improvements
+		Don't show info message about stack assignment when none item is selected
+		Clear trade button also clear enchantments slot
+		Various minor bug fixes and performance enhancements
+	Localizing
+		enUS - English (United States) at this point only!
+
+Version: 1.3.1
+	Support for Cataclysm Classic patch 4.4.0
+	A new feature called 'Lockbox' has been added for trading with Rogues, placing locked boxes in the 'will not be traded' slot by default
+	
+Version: 1.3.0
+	Support for patch 1.15.2
+	
+Version: 1.2.9
+	Updated for Retail Wow icon error "C_Item.GetItemIcon(itemLocation)"
+
+Version: 1.2.8
+	Show the right selected option when none item is selected
+	Reset stack numbers when the selected item is changed to "None"
+	When removing a trade history, ensure it's also deleted from the SavedVariables table to prevent it from reappearing upon relog
+	Added an Autofill limit to prevent unnecessary filling up with a player that you have traded before in this gaming session
+	When deleting a single trade no longer ask for confirmation
+	Added option Enable/Disable "Refresh limit"
+	Conditions Enable "Party members" and "Raid members" to default
+
+Version: 1.2.7
+	History
+		Updated the totalview when an a trade is deleted
+		Trade slot 7 will now also be saved for enchantments or locked picks
+
+Version: 1.2.6
+	Buttons at tradewindow:
+		Added tooltip
+		Updated stackcount items left available in your inventory
+		Only show stackcount of a selected item
+	Reduce the number of looping through your inventory for each option menue to select an item
+	Slected option:
+		set to alphabetical order
+		get item by name insead of ID same for trading
+	History also show now the total amount of items and gold that have been traded
+
+Version: 1.2.5
+	Replace function SlotPosition for Blizzard TradeFrame_GetAvailableSlot()
+	Patched version 1.15.1
+
+Version: 1.2.4
+	Made some changes to prevent the problem that occurs in version 1.2.1, if there is an item ID stored in the SavedVariables\TradeFill.lua it will check for all necessary entries if not it will be restored
+	Show message from all the items that are not the Required level
+	History reverse order
+	Buttons at tradewindow:
+		You now can right-click to remove an item.
+		Fixed hidden and visibility function.
+	Encapsulate functions
+	Close the tradewindow when a player tries to trade and you have the interface option panel open
+
+Version: 1.2.3
+	Chat commands work again
+	Prevent from filling in second option when there is only one item selected
+
+Version: 1.2.2
+	Fix restore database
+
+Version: 1.2.1
+	Fix restore database
+
+Version: 1.2.0
+	History tracking save info from trades that you have made or received
+	Increase the number of items that you can assign to 6
+	Second condition Guild members will no longer fill the tradewindow when your not in a guild
+	Classes localized
+	Added localizing
+		enUS - English (United States)
+		esMX - Spanish (Mexico)
+		ptBR - Portuguese
+		deDE - German
+		enGB - English (Great Britain)
+		esES - Spanish (Spain)
+		frFR - French
+		itIT - Italian
+		ruRU - Russian
+		koKR - Korean
+		zhTW - Chinese (Traditional)
+		zhCN - Chinese (Simplified)
+	Updated status messages
+
+Version: 1.1.9
+	Added minimap button
+		Click to enable or disable autofill
+		Right-click to open or close the options menu
+	Second condition show the right max level when switching between Season of Discovery and Era
+	Hide clear button when buttons disabled
+	Updated class for Shamans
+
+Version: 1.1.8
+	Fixed Level cap as intended for "WoW Season of Discovery"
+	When the tradewindow is open and you are out of stock you can now make new items and they will be add
+	Support The Burning Crusade Classic
+	Support Wrath of the Lich King Classic
+	Support World of Warcraft" (retail)
+	Stop from showing multiple message when more than one stack have been assigned
+	Button at tradewindow shows the number of items left available in your bags
+	Second condition "Guild members" don't fill when receiver is not in an guild
+	Color format changes for status messages
+
+Version: 1.1.7
+	Support for patch 1.15.0
+	
+Version: 1.1.6
+	Add "Master looter" don't autofill tradewindow when your the loot master
+	Add "Autofill" the addon is still active only will not autofill
+	Add /tradefillon slash command to enable autofill
+	Add /tradefilloff slash command to disable "Autofill"
+
+Version: 1.1.5
+	Add /tradefill slash command to open up interface panel
+	Show version number on login
+	"Required level" has now a slight green color
+	Optional feature level cap only autofill tradewindow when player is level cap
+	Exclude "Guilds" only show message when the first condition is meet
+	Message when both stacks are set to "0" only show message when the first condition is meet
+	Optimizes code
+
+Version: 1.1.4
+	Changed overall code
+	Changed the default buttons at tradewindow with icons
+	Fixed "Clear" button hide when both items are selected with "None"
+	Add "Required level" only autofill tradewindow when player has required item level
+	Fixed optional feature "Guild members" only autofill tradewindow when player is an guild member
+
+Version: 1.1.3
+	Filling up the right amount of stack doing the new option "Guild members"
+	
+Version: 1.1.2
+	Keep selected stacks in the dropdown menu even when items are gone
+	The options "Party members" and "Raid members" works now as intendended, only fill tradewindow when player is in your group
+	Add Option to exclude Players or Guilds
+	Add Option "Guild members"
+
+Version: 1.0.1
+	When uncheck "Show only full stacks" keep last selected option available in the dropdown menu
+
+Version: 1.0.0
+	Initial release WoW Classic Era

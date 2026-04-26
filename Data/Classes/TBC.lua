@@ -1,0 +1,3 @@
+local addonName, TF = ...
+
+TF.classes = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK", "DRUID" }

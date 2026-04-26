@@ -1,0 +1,69 @@
+## Interface: 11508
+## Title: TradeFill |c8788EEffv2.0.0|r
+## Notes: Automatically fills the trade window with selected items and keeps track of your trade log
+## Version: 2.0.0
+## Author: Mafkees - Pyrewood Village
+## IconTexture: Interface\AddOns\TradeFill\Images\Spell_Nature_Polymorph_Cow.tga
+## SavedVariables: TradeFillDB TradeFillHistoryDB TradeFillLimitDB
+## OptionalDeps: Ace3, LibDataBroker-1.1, LibDBIcon-1.0
+
+## Libraries
+libraries.xml
+
+## Bootstrap
+Core/Migrations.lua
+Core/Init.lua
+Core/Colors.lua
+Core/State.lua
+Core/Utils.lua
+Core/Actions.lua
+
+## Localization
+Locales/TradeFill-enUS.lua
+
+## Data
+Data/Classes/Vanilla.lua
+Data/Spellrank/Vanilla.lua
+Data/Items.lua
+Data/Limit.lua
+Data/Tradelog.lua
+
+## Modules - Trade Rules
+Modules/TradeRules/General.lua
+Modules/TradeRules/Items.lua
+Modules/TradeRules/Evaluator.lua
+
+## Modules - Trade Flow
+Modules/Trade.lua
+Modules/TradeSession.lua
+Modules/TradeExecutor.lua
+Modules/TradeLog.lua
+Modules/InventoryManager.lua
+Modules/BagOpener.lua
+Modules/TradeController.lua
+
+## Modules - UI Integration
+Modules/TradingStatusPanel.lua
+Modules/TradeWindowButtons.lua
+Modules/Minimap.lua
+
+## UI
+UI/Utils.lua
+UI/Helper.lua
+UI/Widgets.lua
+UI/UIManager.lua
+
+UI/Config/General.lua
+UI/Config/Bags.lua
+
+UI/TradeRules/Allowed.lua
+UI/TradeRules/Requirements.lua
+UI/TradeRules/Rules.lua
+UI/TradeRules/Ignore/Players.lua
+UI/TradeRules/Ignore/Guilds.lua
+
+UI/Trade/Item.lua
+UI/Trade/Stack.lua
+UI/Trade/Limit.lua
+
+UI/Tradelog/Tradelog.lua
