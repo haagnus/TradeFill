@@ -1,4 +1,4 @@
-# TradeFill
+# TradeFill 2.0.1
 
 TradeFill is a World of Warcraft addon that automatically fills the trade window with selected items when your configured trade rules are met. It is designed for players who regularly trade the same items, such as conjured food, water, healthstones, lockboxes, consumables, or other stackable items.
 
