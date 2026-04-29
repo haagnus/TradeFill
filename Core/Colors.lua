@@ -3,7 +3,7 @@ local TradeFill = LibStub("AceAddon-3.0"):GetAddon(addonName)
 
 TF.colors = {
     tradelog = {
-        notrade = "",
+        notrade = "ff0000",
     },
 
     trade = {

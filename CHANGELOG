@@ -2,6 +2,7 @@ Version: 2.0.1
 	Fixed minimap button text so the tooltip and click instructions display correctly
 	Updated the UI folder structure for clearer organization around settings sections
 	Reorganized settings files into General, Trading Rules, Trading Setup, Trade Log, and Shared UI folders
+	Fixxed color "Not trade below"
 
 Version: 2.0.0
 	Complete addon rewrite with a modern modular structure for better maintainability
