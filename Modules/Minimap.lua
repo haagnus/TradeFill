@@ -45,13 +45,13 @@ end
 
 function MinimapModule:SetButtonOn()
     if self.dataObject then
-        self.dataObject.icon = "Interface\\AddOns\\" .. addonName .. "\\Images\\Spell_Nature_Polymorph_Cow.tga"
+        self.dataObject.icon = "Interface\\AddOns\\" .. addonName .. "\\Images\\Enable.tga"
     end
 end
 
 function MinimapModule:SetButtonOff()
     if self.dataObject then
-        self.dataObject.icon = "Interface\\AddOns\\" .. addonName .. "\\Images\\Spell_Nature_Polymorph_Cow_Red.tga"
+        self.dataObject.icon = "Interface\\AddOns\\" .. addonName .. "\\Images\\Disable.tga"
     end
 end
 
@@ -59,7 +59,7 @@ function MinimapModule:DefaultsMinimap()
     return {
         type = "data source",
         text = "TradeFillMinimap",
-        icon = "Interface\\AddOns\\" .. addonName .. "\\Images\\Spell_Nature_Polymorph_Cow.tga",
+        icon = "Interface\\AddOns\\" .. addonName .. "\\Images\\Enable.tga",
 
         OnTooltipShow = function(tooltip)
             self:UpdateTooltip(tooltip)
