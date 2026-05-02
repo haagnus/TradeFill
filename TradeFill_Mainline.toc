@@ -74,5 +74,6 @@ UI/TradingRules/Ignore/Guilds.lua
 UI/TradingSetup/Item.lua
 UI/TradingSetup/Stack.lua
 UI/TradingSetup/Limit.lua
+UI/TradingSetup/PlayerOverrides.lua
 
 UI/TradeLog/Log.lua

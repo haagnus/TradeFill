@@ -86,6 +86,16 @@ function TradeController:FillTrade()
 
     local items = self.evaluator:EvaluateItems()
 
+    if TradeFill:GetActivePlayerOverride() and TF.state and not TF.state.playerOverrideMessageShown then
+        self.status:AddMessage(
+            string.format(
+                TF.Loc["MESSAGE_PLAYER_OVERRIDE_USED"],
+                TradeFill:SetName(TF.state)
+            )
+        )
+        TF.state.playerOverrideMessageShown = true
+    end
+
     self.executor:FillInstant(items, self.trade)
 end
 
@@ -100,6 +110,7 @@ function TradeController:EndTrade()
     end
 
     self:RestoreInventory()
+    TradeFill:ClearRuntimeItems()
 end
 
 function TradeController:RestoreInventory()

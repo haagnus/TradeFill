@@ -1,5 +1,11 @@
 Version: 2.0.2
 	Changed addon icon
+	Added player-specific trade overrides that can save custom stack counts and stack sizes per player
+	Added a Save button to the trade window for storing the current trade setup as a player override
+	Added a Player Overrides settings page to view, edit, and delete saved player overrides
+	Added "Trade anyway" support for player override items that are not currently selected in Trade Settings
+	Improved automatic trade filling with a queued retry flow for more reliable stack placement
+	Updated trade setup navigation, localization, saved data defaults, and TOC file lists for player overrides
 
 Version: 2.0.1
 	Fixed minimap button text so the tooltip and click instructions display correctly

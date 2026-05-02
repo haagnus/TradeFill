@@ -1,6 +1,8 @@
 local addonName, TF = ...
 
 function TF:ResetState()
+    self.runtimeItems = nil
+
     self.state = {
         active = false,
         isScanning = false,
@@ -8,6 +10,7 @@ function TF:ResetState()
         needsQueueProcessing = false,
         isWatchingBags = false,
         manualFillActive = false,
+        playerOverrideMessageShown = false,
         --bothAccepted = false,
         completed = false,
         groupType = nil,

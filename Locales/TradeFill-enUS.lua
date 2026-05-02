@@ -156,6 +156,17 @@ L["INFO_GUILDS_DESC"] = "Players in these guilds will be ignored by %s"
 -- Trading Setup
 --------------------------------------------------------
 L["GROUP_TRADING_SETUP"] = "Trading Setup"
+L["PLAYER_OVERRIDES"] = "Player Overrides"
+L["INFO_PLAYER_OVERRIDES"] = "Saved player-specific trade amounts %s"
+L["INFO_PLAYER_OVERRIDES_DESC"] = "Player overrides are created from the trade window and replace the normal group setup for matching items"
+L["PLAYER_OVERRIDES_EMPTY"] = "No player overrides saved"
+L["PLAYER_OVERRIDES_SUMMARY"] = "%d players have saved overrides. Select a player in the menu to edit their overrides."
+L["PLAYER_OVERRIDE_ITEM_ID"] = "Item ID: %s"
+L["PLAYER_OVERRIDE_NOT_SELECTED"] = "Not selected"
+L["PLAYER_OVERRIDE_NOT_SELECTED_DESC"] = "Saved override. This item is not currently selected in Trade Settings, so it will not be traded unless Trade anyway is enabled."
+L["PLAYER_OVERRIDE_TRADE_ANYWAY"] = "Trade"
+L["PLAYER_OVERRIDE_TRADE_ANYWAY_DESC"] = "Trade this saved override for this player even when the item is not selected in Trade Settings. Uses an empty trade slot during the current trade."
+L["PLAYER_OVERRIDE_TRADE_ANYWAY_CONFIGURED_DESC"] = "This item is already selected in Trade Settings, so the override can trade normally. Keep this enabled if you want it to continue trading even when the item is later removed from Trade Settings."
 
 --------------------------------------------------------
 -- Items
@@ -230,6 +241,11 @@ L["BUTTON_RESET_DESC"] = [=[Reset all stack and size values for:
     - %s
 ]=]
 L["BUTTON_DELETE_DAY"] = "Delete"
+L["BUTTON_DELETE"] = "Delete"
+L["BUTTON_DELETE_PLAYER_OVERRIDE"] = "Delete player override"
+L["BUTTON_DELETE_ALL_PLAYER_OVERRIDES"] = "Delete all player overrides"
+L["BUTTON_DELETE_ALL_PLAYER_OVERRIDES_DESC"] = "Remove all saved player override data"
+L["BUTTON_DELETE_ALL_PLAYER_OVERRIDES_CONFIRM"] = "Are you sure you want to delete all player override data?"
 L["BUTTON_DELETE_ALL"] = "Delete trade log"
 L["BUTTON_DELETE_ALL_CONFIRM"] = "Are you sure you want to delete all tradelog entries"
 L["BUTTON_REMOVE_TRADE"] = "Removed this trade log entry"
@@ -263,6 +279,9 @@ L["BUTTON_TOOLTIP"] = [=[
 L["CREATE_NEW_STACK"] = "Create a new stack"
 
 L["BUTTON_CLEAR"] = "Clear"
+L["BUTTON_PLAYER_OVERRIDE"] = "Save"
+L["BUTTON_PLAYER_OVERRIDE_DESC"] = "Save this trade for this player. Edit it in Player Overrides"
+L["BUTTON_PLAYER_OVERRIDE_DISABLED"] = "Change the trade amount to save a player override"
 L["BUTTON_SETTING"] = "Settings"
 L["BUTTON_SETTING_DESC"] = "Open the addon to set your preference"
 
@@ -290,5 +309,8 @@ L["MESSAGE_IGNORE_PLAYERS"] = "Cannot autofill because %s is on the ignored play
 L["MESSAGE_IGNORE_GUILDS"] = "Cannot autofill because %s is on the ignored guilds list"
 L["MESSAGE_LIMIT"] = "Cannot autofill %s because it has already reached its limit of %s"
 L["MESSAGE_RESET_LIMIT"] = "%s %s has been refreshed"
+L["MESSAGE_PLAYER_OVERRIDE_SAVED"] = "Saved player override for %s"
+L["MESSAGE_PLAYER_OVERRIDE_USED"] = "Using player override for %s"
+L["MESSAGE_PLAYER_OVERRIDE_NO_EMPTY_SLOT"] = "A Trade anyway player override was skipped because all Trade Settings slots are already selected"
 L["MESSAGE_MIGRATION_COMPLETE"] = "%s Your old stack settings were moved to %s. You can keep using Main, or set custom stack amounts and sizes for %s, %s, and %s"
 L["MESSAGE_MIGRATION_BAGS"] = "%s Bags can now open and close automatically with the trade window"

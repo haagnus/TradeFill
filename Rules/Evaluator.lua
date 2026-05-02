@@ -28,7 +28,7 @@ function Evaluator:EvaluateItems()
     self.itemTradeRules:BeginEvaluation()
 
     for tradeSlot = 1, MAX_TRADABLE_ITEMS do
-        local item = TF.item[tostring(tradeSlot)]
+        local item = TradeFill:GetTradeItem(tradeSlot)
         local isValid = false
 
         if item and item.id and item.id > 0 then
@@ -54,4 +54,3 @@ function Evaluator:EvaluateItems()
 
     return results
 end
-

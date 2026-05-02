@@ -8,6 +8,10 @@ local GetContainerItemInfo = C_Container.GetContainerItemInfo
 
 local TradeWindowButtons = TradeFill:NewModule("TradeWindowButtons", "AceEvent-3.0")
 local buttonOffsets = { 30, 68, 106, 144, 182, 220 }
+local function GetTradeButtonAnchor()
+    return TradeFrameTradeButton or TradeFrameTradeButton1 or TradeFrameAcceptButton or TradeFrame
+end
+
 local panelBackdrop = {
     bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
     edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
@@ -22,6 +26,7 @@ function TradeWindowButtons:OnInitialize()
     self.spellButtons = {}
     self.pendingSpellFillIndex = nil
     self.pendingFillRetry = nil
+    self.playerTradeChanged = false
 
     self.bagWatcher = CreateFrame("Frame")
     self.bagWatcher.owner = self
@@ -273,6 +278,121 @@ function TradeWindowButtons:PlaceSingleCreatedItem(index, tradeSlot)
     return false
 end
 
+function TradeWindowButtons:GetCurrentTradeSetup()
+    local setup = {}
+
+    for tradeSlot = 1, MAX_TRADABLE_ITEMS do
+        local item = TradeFill:GetEffectiveItem(tradeSlot)
+        local baseSize = TradeFill:GetBaseActiveGroupSize(tradeSlot)
+        local count = 0
+        local stackSize = baseSize
+
+        if item and item.id and item.id > 0 and item.name and item.name ~= "" and GetTradePlayerItemInfo then
+            for playerSlot = 1, MAX_TRADABLE_ITEMS do
+                local name, _, numItems = GetTradePlayerItemInfo(playerSlot)
+
+                if name == item.name then
+                    count = count + 1
+
+                    if tonumber(numItems) and tonumber(numItems) > 0 then
+                        stackSize = tonumber(numItems)
+                    end
+                end
+            end
+
+            setup[tostring(item.id)] = {
+                stack = count,
+                size = stackSize or 0,
+            }
+        end
+    end
+
+    return setup
+end
+
+function TradeWindowButtons:CurrentTradeMatchesOverride(setup)
+    local override = TradeFill:GetActivePlayerOverride()
+
+    if not override then
+        return false
+    end
+
+    for tradeSlot = 1, MAX_TRADABLE_ITEMS do
+        local item = TradeFill:GetEffectiveItem(tradeSlot)
+
+        if item and item.id and item.id > 0 then
+            local key = tostring(item.id)
+            local currentItem = setup[key] or {}
+            local overrideItem = override[key] or {}
+            local currentStack = tonumber(currentItem.stack) or 0
+            local currentSize = tonumber(currentItem.size) or 0
+            local overrideStack = tonumber(overrideItem.stack) or 0
+            local overrideSize = tonumber(overrideItem.size) or 0
+
+            if currentStack ~= overrideStack or currentSize ~= overrideSize then
+                return false
+            end
+        end
+    end
+
+    return true
+end
+
+function TradeWindowButtons:CurrentTradeDiffersFromGroup(setup)
+    local current = setup or self:GetCurrentTradeSetup()
+    local differs = false
+
+    for tradeSlot = 1, MAX_TRADABLE_ITEMS do
+        local item = TradeFill:GetEffectiveItem(tradeSlot)
+
+        if item and item.id and item.id > 0 then
+            local key = tostring(item.id)
+            local currentItem = current[key] or {}
+            local currentStack = tonumber(currentItem.stack) or 0
+            local currentSize = tonumber(currentItem.size) or 0
+            local groupStack = TradeFill:GetBaseActiveGroupStack(tradeSlot)
+            local groupSize = TradeFill:GetBaseActiveGroupSize(tradeSlot)
+
+            if currentStack ~= groupStack or (currentStack > 0 and currentSize ~= groupSize) then
+                differs = true
+                break
+            end
+        end
+    end
+
+    if not differs then
+        return false
+    end
+
+    if self:CurrentTradeMatchesOverride(current) then
+        return false
+    end
+
+    return true
+end
+
+function TradeWindowButtons:SavePlayerOverride()
+    local target = TF.state and TF.state.target
+
+    if not target or not target.fullName then
+        return
+    end
+
+    local setup = self:GetCurrentTradeSetup()
+
+    TradeFill:SetPlayerOverride(target.fullName, setup)
+
+    TradeFill:GetModule("TradingStatusPanel"):AddMessage(
+        string.format(
+            TF.Loc["MESSAGE_PLAYER_OVERRIDE_SAVED"],
+            TradeFill:SetName(TF.state)
+        )
+    )
+
+    self.playerTradeChanged = false
+    self:UpdateButtons()
+end
+
 function TradeWindowButtons:EnsureButtons()
     if self.initialized then
         return
@@ -434,6 +554,33 @@ function TradeWindowButtons:EnsureButtons()
     end)
 
     self.clearButton = clearButton
+
+    local overrideButton = CreateFrame("Button", addonName .. "TradeButtonPlayerOverride", TradeFrame, "UIPanelButtonTemplate")
+    overrideButton:SetSize(66, 22)
+    overrideButton:SetText(TF.Loc["BUTTON_PLAYER_OVERRIDE"])
+    overrideButton:SetPoint("RIGHT", GetTradeButtonAnchor(), "LEFT", -6, 0)
+
+    overrideButton:SetScript("OnClick", function()
+        self:SavePlayerOverride()
+    end)
+
+    overrideButton:SetScript("OnEnter", function(widget)
+        GameTooltip:SetOwner(widget, "ANCHOR_RIGHT")
+        GameTooltip:SetText(TF.Loc["BUTTON_PLAYER_OVERRIDE"], 1, 1, 1)
+        GameTooltip:AddLine(TF.Loc["BUTTON_PLAYER_OVERRIDE_DESC"], 1, 1, 1, true)
+
+        if not widget:IsEnabled() then
+            GameTooltip:AddLine(TF.Loc["BUTTON_PLAYER_OVERRIDE_DISABLED"], 1, 0.2, 0.2, true)
+        end
+
+        GameTooltip:Show()
+    end)
+
+    overrideButton:SetScript("OnLeave", function()
+        GameTooltip:Hide()
+    end)
+
+    self.overrideButton = overrideButton
     self.initialized = true
 end
 
@@ -452,6 +599,10 @@ function TradeWindowButtons:HideButtons()
 
     if self.clearButton then
         self.clearButton:Hide()
+    end
+
+    if self.overrideButton then
+        self.overrideButton:Hide()
     end
 end
 
@@ -528,9 +679,25 @@ function TradeWindowButtons:UpdateButtons()
     if self.clearButton then
         self.clearButton:Show()
     end
+
+    if self.overrideButton then
+        self.overrideButton:ClearAllPoints()
+        self.overrideButton:SetPoint("RIGHT", GetTradeButtonAnchor(), "LEFT", -6, 0)
+
+        if self.playerTradeChanged and self:CurrentTradeDiffersFromGroup() then
+            self.overrideButton:Enable()
+            self.overrideButton:SetAlpha(1)
+        else
+            self.overrideButton:Disable()
+            self.overrideButton:SetAlpha(0.5)
+        end
+
+        self.overrideButton:Show()
+    end
 end
 
 function TradeWindowButtons:TRADE_SHOW()
+    self.playerTradeChanged = false
     self:RegisterEvent("TRADE_PLAYER_ITEM_CHANGED")
     self:RegisterEvent("TRADE_TARGET_ITEM_CHANGED")
 
@@ -543,12 +710,14 @@ function TradeWindowButtons:TRADE_CLOSED()
     if TF.state then
         TF.state.manualFillActive = false
     end
+    self.playerTradeChanged = false
     self:UnregisterEvent("TRADE_PLAYER_ITEM_CHANGED")
     self:UnregisterEvent("TRADE_TARGET_ITEM_CHANGED")
     self:HideButtons()
 end
 
 function TradeWindowButtons:TRADE_PLAYER_ITEM_CHANGED()
+    self.playerTradeChanged = true
     C_Timer.After(0.05, function()
         self:UpdateButtons()
     end)

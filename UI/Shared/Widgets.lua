@@ -33,6 +33,14 @@ function TradeFill:AddSpacer(AceGUI, group)
     group:AddChild(spacer)
 end
 
+function TradeFill:AddInlineSpacer(AceGUI, group, width)
+    local spacer = AceGUI:Create("Label")
+    spacer:SetWidth(width or 10)
+    group:AddChild(spacer)
+
+    return spacer
+end
+
 function TradeFill:SetToolTipLink(widget, link)
     if link then
         widget:SetCallback("OnEnter", function(widget)

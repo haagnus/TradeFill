@@ -7,6 +7,7 @@ local MAIN_MODE = "main"
 local STACK_GROUP_MODES = { "main", "ungrouped", "party", "raid" }
 local MAIN_DROPDOWN_WIDTH = 80
 local GROUP_DROPDOWN_WIDTH = 100
+local RESET_BUTTON_IMAGE_Y_OFFSET = -2
 
 local function NormalizeStackSelection(mode, value)
     local normalizedValue = tonumber(value) or 0
@@ -251,6 +252,8 @@ local function BuildStackContent(self, container, class, mode)
             resetButton:SetLabel("")
             resetButton:SetWidth(28)
             resetButton:SetHeight(28)
+            resetButton.image:ClearAllPoints()
+            resetButton.image:SetPoint("TOP", 0, RESET_BUTTON_IMAGE_Y_OFFSET)
 
             for regionIndex = 1, select("#", resetButton.frame:GetRegions()) do
                 local region = select(regionIndex, resetButton.frame:GetRegions())

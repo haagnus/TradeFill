@@ -138,6 +138,7 @@ function InventoryManager:SearchInventory(flag, onComplete, manualRequest)
                 TF.state.isWatchingBags = true
 
                 if TF.state.needsQueueProcessing then
+                    TF.state.needsQueueProcessing = false
                     C_Timer.After(0.5, onComplete)
                 else
                     onComplete()

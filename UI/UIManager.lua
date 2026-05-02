@@ -57,7 +57,9 @@ function handlers.B(contentContainer, path)
 end
 
 function handlers.C(contentContainer, path)
-    if path[2] and classLookup[path[2]] then
+    if path[2] == "playerOverrides" then
+        TradeFill:PlayerOverrides(contentContainer, path[3])
+    elseif path[2] and classLookup[path[2]] then
         TradeFill:Stack(contentContainer, path[2])
     elseif path[1] == "C" then
         TradeFill:Item(contentContainer)
@@ -78,6 +80,7 @@ end
 function TradeFill:GetTreeData()
     local classChildren = {}
     local tradelogChildren = {}
+    local playerOverrideChildren = {}
 
     for _, class in pairs(TF.classes) do
         classChildren[#classChildren + 1] = {
@@ -85,6 +88,23 @@ function TradeFill:GetTreeData()
             text = TradeFill:SetClass(class)
         }
     end
+
+    for playerName in pairs(self:GetPlayerOverrides()) do
+        playerOverrideChildren[#playerOverrideChildren + 1] = {
+            value = playerName,
+            text = self:GetPlayerOverrideDisplayName(playerName),
+        }
+    end
+
+    table.sort(playerOverrideChildren, function(a, b)
+        return a.text < b.text
+    end)
+
+    classChildren[#classChildren + 1] = {
+        value = "playerOverrides",
+        text = TF.Loc["PLAYER_OVERRIDES"],
+        children = playerOverrideChildren,
+    }
 
     for timeStamp in pairs(TradeFill.tradelog.profile) do
         tradelogChildren[#tradelogChildren + 1] = {
@@ -168,6 +188,12 @@ function TradeFill:CreateTreeGroup(frame)
 
     for _, class in pairs(TF.classes) do
         groups["C\001" .. class] = true
+    end
+
+    groups["C\001playerOverrides"] = true
+
+    for playerName in pairs(self:GetPlayerOverrides()) do
+        groups["C\001playerOverrides\001" .. playerName] = true
     end
 
     tree:SetStatusTable({

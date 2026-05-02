@@ -22,6 +22,7 @@ function TradeSession:Initialize()
     db.groups.main.size = db.groups.main.size or {}
     db.groups.main.stack[classFile] = db.groups.main.stack[classFile] or {}
     db.groups.main.size[classFile] = db.groups.main.size[classFile] or {}
+    db.playerOverrides = db.playerOverrides or {}
 
     TF.item = db.item
     TF.stacks = db.groups[mode].stack[classFile]
@@ -30,4 +31,6 @@ function TradeSession:Initialize()
     TF.mainSize = db.groups.main.size[classFile]
     TF.settings = db.settings
     TF.limit = TradeFill.limit
+
+    TradeFill:PrepareTradeAnywayPlayerOverrides()
 end

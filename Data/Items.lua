@@ -53,6 +53,8 @@ TF.items = {
             },
         },
 
+        playerOverrides = {},
+
         rank = {
             ["*"] = {
                 ["1"] = false,
