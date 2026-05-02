@@ -31,6 +31,26 @@ local function GetPlayerNameBase(name)
     return string.match(name, "^([^%-]+)") or name
 end
 
+local function AbbreviatePlayerRealm(name)
+    if type(name) ~= "string" or name == "" then
+        return name
+    end
+
+    local prefix, realm, suffix = string.match(name, "^(.-%-)([^|]+)(|r.*)$")
+
+    if prefix and realm and suffix then
+        return prefix .. string.sub(realm, 1, 3) .. suffix
+    end
+
+    prefix, realm = string.match(name, "^(.-%-)(.+)$")
+
+    if prefix and realm then
+        return prefix .. string.sub(realm, 1, 3)
+    end
+
+    return name
+end
+
 local function GetPlayerOverrideByName(overrides, name)
     if type(overrides) ~= "table" then
         return nil
@@ -383,6 +403,16 @@ function TradeFill:GetPlayerOverrideDisplayName(playerName)
     local override = self:GetPlayerOverride(playerName)
 
     if type(override) == "table" and type(override.name) == "string" and override.name ~= "" then
+        return AbbreviatePlayerRealm(override.name)
+    end
+
+    return AbbreviatePlayerRealm(playerName)
+end
+
+function TradeFill:GetPlayerOverrideFullDisplayName(playerName)
+    local override = self:GetPlayerOverride(playerName)
+
+    if type(override) == "table" and type(override.name) == "string" and override.name ~= "" then
         return override.name
     end
 
@@ -430,6 +460,52 @@ function TradeFill:IsPlayerOverrideItemConfigured(itemID)
     end
 
     return IsConfiguredItemID(db, itemID)
+end
+
+function TradeFill:GetActivePlayerOverrideUsage()
+    local db = self.db and self.db.profile
+    local playerOverride = self:GetActivePlayerOverride()
+    local usage = {
+        hasOverride = type(playerOverride) == "table",
+        hasUsableOverride = false,
+        hasTradeAnywayDisabled = false,
+    }
+
+    if not usage.hasOverride or not db then
+        return usage
+    end
+
+    for itemID, itemOverride in pairs(playerOverride) do
+        if tonumber(itemID) and type(itemOverride) == "table" then
+            local hasAmount = (tonumber(itemOverride.stack) or 0) > 0 and (tonumber(itemOverride.size) or 0) > 0
+
+            if IsConfiguredItemID(db, itemID) then
+                usage.hasUsableOverride = true
+            elseif hasAmount and itemOverride.tradeAnyway then
+                usage.hasUsableOverride = true
+            elseif hasAmount then
+                usage.hasTradeAnywayDisabled = true
+            end
+        end
+    end
+
+    if not usage.hasUsableOverride and type(playerOverride.stack) == "table" and type(playerOverride.size) == "table" then
+        for tradeSlot = 1, MAX_TRADABLE_ITEMS do
+            local item = self:GetTradeItem(tradeSlot)
+
+            if item and item.id and item.id > 0 then
+                local stack = tonumber(playerOverride.stack[NormalizeKey(tradeSlot)]) or 0
+                local size = tonumber(playerOverride.size[NormalizeKey(tradeSlot)]) or 0
+
+                if stack > 0 and size > 0 then
+                    usage.hasUsableOverride = true
+                    break
+                end
+            end
+        end
+    end
+
+    return usage
 end
 
 function TradeFill:PrepareTradeAnywayPlayerOverrides()

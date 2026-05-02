@@ -157,16 +157,16 @@ L["INFO_GUILDS_DESC"] = "Players in these guilds will be ignored by %s"
 --------------------------------------------------------
 L["GROUP_TRADING_SETUP"] = "Trading Setup"
 L["PLAYER_OVERRIDES"] = "Player Overrides"
-L["INFO_PLAYER_OVERRIDES"] = "Saved player-specific trade amounts %s"
-L["INFO_PLAYER_OVERRIDES_DESC"] = "Player overrides are created from the trade window and replace the normal group setup for matching items"
+L["INFO_PLAYER_OVERRIDES"] = "Saved player-specific trade amounts: %s"
+L["INFO_PLAYER_OVERRIDES_DESC"] = "Player overrides let you save custom trade amounts for a specific player. When you trade a different stack size or amount than the normal group setup, a button appears in the trade window so you can save those settings. The saved override will be used automatically the next time you trade with that player"
 L["PLAYER_OVERRIDES_EMPTY"] = "No player overrides saved"
 L["PLAYER_OVERRIDES_SUMMARY"] = "%d players have saved overrides. Select a player in the menu to edit their overrides."
 L["PLAYER_OVERRIDE_ITEM_ID"] = "Item ID: %s"
 L["PLAYER_OVERRIDE_NOT_SELECTED"] = "Not selected"
 L["PLAYER_OVERRIDE_NOT_SELECTED_DESC"] = "Saved override. This item is not currently selected in Trade Settings, so it will not be traded unless Trade anyway is enabled."
-L["PLAYER_OVERRIDE_TRADE_ANYWAY"] = "Trade"
+L["PLAYER_OVERRIDE_TRADE_ANYWAY"] = "Trade Anyway"
 L["PLAYER_OVERRIDE_TRADE_ANYWAY_DESC"] = "Trade this saved override for this player even when the item is not selected in Trade Settings. Uses an empty trade slot during the current trade."
-L["PLAYER_OVERRIDE_TRADE_ANYWAY_CONFIGURED_DESC"] = "This item is already selected in Trade Settings, so the override can trade normally. Keep this enabled if you want it to continue trading even when the item is later removed from Trade Settings."
+L["PLAYER_OVERRIDE_TRADE_ANYWAY_CONFIGURED_DESC"] = "This item is already selected in Trade Settings, so the override can trade normally. Keep this enabled if you want it to continue trading even when the item is later removed from Trade Settings"
 
 --------------------------------------------------------
 -- Items
@@ -188,6 +188,8 @@ L["APPROPRIATE_RANK_DESC"] = [=[Enabling this option ensures that %s and %s alwa
 -- Limit
 --------------------------------------------------------
 L["LIMIT"] = "Limit"
+L["INFO_LIMIT"] = "Set how many times each selected item can be traded to the same player before autofill stops"
+L["INFO_LIMIT_DESC"] = "Trade limits are tracked per player and can be reset with the Refresh Limit option or the /tf limit command"
 
 L["REFRESH_LIMIT"] = "Refresh Limit"
 L["REFRESH_LIMIT_DESC"] = [=[Resets the %s limit at the start of each new session
@@ -311,6 +313,7 @@ L["MESSAGE_LIMIT"] = "Cannot autofill %s because it has already reached its limi
 L["MESSAGE_RESET_LIMIT"] = "%s %s has been refreshed"
 L["MESSAGE_PLAYER_OVERRIDE_SAVED"] = "Saved player override for %s"
 L["MESSAGE_PLAYER_OVERRIDE_USED"] = "Using player override for %s"
+L["MESSAGE_PLAYER_OVERRIDE_TRADE_ANYWAY_DISABLED"] = "%s has Player Override settings but %s is not selected"
 L["MESSAGE_PLAYER_OVERRIDE_NO_EMPTY_SLOT"] = "A Trade anyway player override was skipped because all Trade Settings slots are already selected"
 L["MESSAGE_MIGRATION_COMPLETE"] = "%s Your old stack settings were moved to %s. You can keep using Main, or set custom stack amounts and sizes for %s, %s, and %s"
 L["MESSAGE_MIGRATION_BAGS"] = "%s Bags can now open and close automatically with the trade window"

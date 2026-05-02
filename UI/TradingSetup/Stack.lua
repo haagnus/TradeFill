@@ -109,13 +109,6 @@ local function BuildStackContent(self, container, class, mode)
         itemGroup:SetLayout("Flow")
         itemGroup:SetFullWidth(true)
 
-        --[[local labelGroup = AceGUI:Create("SimpleGroup")
-        labelGroup:SetLayout("Flow")
-        labelGroup:SetFullWidth(true)]]
-
-        --labelGroup:AddChild(label)
-        --itemGroup:AddChild(labelGroup)
-
         -- STACK NUMBER
         local stackNumber = AceGUI:Create("Dropdown")
         stackNumber:SetWidth(mode == MAIN_MODE and MAIN_DROPDOWN_WIDTH or GROUP_DROPDOWN_WIDTH)
@@ -208,18 +201,14 @@ local function BuildStackContent(self, container, class, mode)
 
         itemGroup:AddChild(stackNumber)
 
-        local spacer = AceGUI:Create("Label")
-        spacer:SetWidth(10)
-        itemGroup:AddChild(spacer)
+        TradeFill:AddInlineSpacer(AceGUI, itemGroup, nil)
 
         itemGroup:AddChild(stackSize)
 
-        local labelSpacer = AceGUI:Create("Label")
-        labelSpacer:SetWidth(10)
-        itemGroup:AddChild(labelSpacer)
+        TradeFill:AddInlineSpacer(AceGUI, itemGroup, nil)
 
         local label = AceGUI:Create("InteractiveLabel")
-        label:SetWidth(180)
+        label:SetWidth(220)
 
         local fontName, _, fontFlags = label.label:GetFont()
         label.label:SetFont(fontName, 12, fontFlags)
@@ -229,7 +218,7 @@ local function BuildStackContent(self, container, class, mode)
                 TradeFill:GetColor(tradeItem.link),
                 tradeItem.name
             ))
-            --label:SetImage(C_Item.GetItemIconByID(tradeItem.id))
+            label:SetImage(C_Item.GetItemIconByID(tradeItem.id))
             TradeFill:SetToolTipLink(label, tradeItem.link)
         else
             label:SetText(TF.Loc["OPTION_NONE"])
@@ -311,10 +300,6 @@ local function BuildStackContent(self, container, class, mode)
 
             updateSummaryText()
             itemGroup:AddChild(summary)
-
-            local buttonSpacer = AceGUI:Create("Label")
-            buttonSpacer:SetWidth(10)
-            itemGroup:AddChild(buttonSpacer)
 
             itemGroup:AddChild(resetButton)
         end

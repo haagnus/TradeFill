@@ -28,7 +28,7 @@ function TradeFill:Rules(frame, parent)
         )
     )
 
-    self:AddSpacer(AceGUI, group)
+    self:AddRowSpacer(AceGUI, group)
 
     -- Lockbox
     self:CreateCheckBox(group, {

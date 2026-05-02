@@ -26,7 +26,7 @@ function TradeFill:Allowed(frame, parent)
         )
     )
 
-    self:AddSpacer(AceGUI, group)
+    self:AddRowSpacer(AceGUI, group)
 
     -- Ungrouped
     self:CreateCheckBox(group, {

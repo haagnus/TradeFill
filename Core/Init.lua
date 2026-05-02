@@ -34,7 +34,7 @@ function TradeFill:HandleSlashCommand(input)
         ))
     end
 end
---test
+
 local function RegisterChatCommands(self)
     self:RegisterChatCommand("tradefill", "HandleSlashCommand")
     self:RegisterChatCommand("tf", "HandleSlashCommand")

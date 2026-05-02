@@ -29,7 +29,7 @@ function TradeFill:Requirements(frame, parent)
         )
     )
 
-    self:AddSpacer(AceGUI, group)
+    self:AddRowSpacer(AceGUI, group)
 
     -- Guild
     self:CreateCheckBox(group, {

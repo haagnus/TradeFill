@@ -13,7 +13,8 @@ TF.colors = {
         auto = "ffff00",
         complete = "00ff00",
         canceled = "ff0000",
-        limit = "ffff00"
+        limit = "ffff00",
+        anyway = "40ff40",
     },
 
     filter = {

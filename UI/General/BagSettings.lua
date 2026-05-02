@@ -16,7 +16,7 @@ function TradeFill:Bags(frame)
         TF.Loc["INFO_BAGS_DESC"]
     )
 
-    self:AddSpacer(AceGUI, group)
+    self:AddRowSpacer(AceGUI, group)
 
     local bagNames = {
         [0] = "Backpack",

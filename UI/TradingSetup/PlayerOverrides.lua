@@ -4,10 +4,9 @@ local TradeFill = LibStub("AceAddon-3.0"):GetAddon(addonName)
 local AceGUI = LibStub("AceGUI-3.0")
 local OVERRIDE_DROPDOWN_WIDTH = 80
 local OVERRIDE_ITEM_WIDTH = 220
-local OVERRIDE_TRADE_ANYWAY_WIDTH = 60
+local OVERRIDE_TRADE_ANYWAY_WIDTH = 120
 local OVERRIDE_DELETE_WIDTH = 28
 local OVERRIDE_DELETE_IMAGE_Y_OFFSET = -2
-local OVERRIDE_SPACER_WIDTH = 10
 
 local function SortedKeys(tbl)
     local keys = {}
@@ -179,7 +178,7 @@ local function AddPlayerOverrideItemRow(self, parent, playerName, itemID, itemOv
         self:SetPlayerOverrideItem(playerName, itemID, itemOverride.stack, itemOverride.size)
     end)
 
-    self:AddInlineSpacer(AceGUI, row, OVERRIDE_SPACER_WIDTH)
+    self:AddInlineSpacer(AceGUI, row, nil)
 
     sizeDropdown = AddNumberDropdown(self, row, TF.Loc["LABEL_SIZE"], sizeValue, sizeMax, TF.Loc["SELECT_STACK_SIZE_DESC"], function(nextSize)
         itemOverride.size = nextSize
@@ -201,14 +200,14 @@ local function AddPlayerOverrideItemRow(self, parent, playerName, itemID, itemOv
         self:SetPlayerOverrideItem(playerName, itemID, itemOverride.stack, itemOverride.size)
     end)
 
-    self:AddInlineSpacer(AceGUI, row, OVERRIDE_SPACER_WIDTH)
+    self:AddInlineSpacer(AceGUI, row, nil)
 
     row:AddChild(itemLabel)
 
-    self:AddInlineSpacer(AceGUI, row, OVERRIDE_SPACER_WIDTH)
+    self:AddInlineSpacer(AceGUI, row, nil)
 
     local tradeAnyway = AceGUI:Create("CheckBox")
-    tradeAnyway:SetLabel(TF.Loc["PLAYER_OVERRIDE_TRADE_ANYWAY"])
+    tradeAnyway:SetLabel(string.format(self:SetColor(TF.Loc["PLAYER_OVERRIDE_TRADE_ANYWAY"], TF.colors.trade.anyway)))
     tradeAnyway:SetWidth(OVERRIDE_TRADE_ANYWAY_WIDTH)
     tradeAnyway:SetValue(itemOverride.tradeAnyway and true or false)
     tradeAnyway:SetCallback("OnValueChanged", function(_, _, value)
@@ -221,7 +220,7 @@ local function AddPlayerOverrideItemRow(self, parent, playerName, itemID, itemOv
     )
     row:AddChild(tradeAnyway)
 
-    self:AddInlineSpacer(AceGUI, row, OVERRIDE_SPACER_WIDTH)
+    self:AddInlineSpacer(AceGUI, row, nil)
 
     AddIconDeleteButton(row, TF.Loc["BUTTON_DELETE"], function()
         self:DeletePlayerOverrideItem(playerName, itemID)
@@ -255,7 +254,7 @@ local function AddPlayerOverrideGroup(self, parent, playerName, playerOverride, 
     end)
     parent:AddChild(deletePlayerButton)
 
-    self:AddSpacer(AceGUI, parent)
+    self:AddRowSpacer(AceGUI, parent)
 end
 
 local function AddDeleteAllPlayerOverrides(self, parent, frame, playerCount, rebuild)
@@ -264,7 +263,7 @@ local function AddDeleteAllPlayerOverrides(self, parent, frame, playerCount, reb
     summary:SetText(string.format(TF.Loc["PLAYER_OVERRIDES_SUMMARY"], playerCount))
     parent:AddChild(summary)
 
-    self:AddSpacer(AceGUI, parent)
+    self:AddRowSpacer(AceGUI, parent)
 
     local deleteAllButton = AceGUI:Create("Button")
     deleteAllButton:SetText(TF.Loc["BUTTON_DELETE_ALL_PLAYER_OVERRIDES"])
@@ -307,7 +306,7 @@ function TradeFill:PlayerOverrides(frame, selectedPlayerName)
         contentGroup,
         string.format(
             TF.Loc["INFO_PLAYER_OVERRIDES"],
-            selectedPlayerName and self:GetPlayerOverrideDisplayName(selectedPlayerName) or ""
+            selectedPlayerName and self:GetPlayerOverrideFullDisplayName(selectedPlayerName) or ""
         ),
         TF.Loc["INFO_PLAYER_OVERRIDES_DESC"]
     )

@@ -20,7 +20,7 @@ function TradeFill:General(frame)
         end
     })
 
-    self:AddSpacer(AceGUI, group)
+    self:AddRowSpacer(AceGUI, group)
 
     self:SetInfoLabel(
         AceGUI,

@@ -26,16 +26,18 @@ function TradeFill:CreateCheckBox(parent, config)
     return check
 end
 
-function TradeFill:AddSpacer(AceGUI, group)
+function TradeFill:AddRowSpacer(AceGUI, group)
     local spacer = AceGUI:Create("Label")
     spacer:SetText(" ")
     spacer:SetFullWidth(true)
     group:AddChild(spacer)
+
+    return spacer
 end
 
 function TradeFill:AddInlineSpacer(AceGUI, group, width)
     local spacer = AceGUI:Create("Label")
-    spacer:SetWidth(width or 10)
+    spacer:SetWidth(width or 5)
     group:AddChild(spacer)
 
     return spacer

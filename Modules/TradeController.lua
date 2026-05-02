@@ -86,13 +86,26 @@ function TradeController:FillTrade()
 
     local items = self.evaluator:EvaluateItems()
 
-    if TradeFill:GetActivePlayerOverride() and TF.state and not TF.state.playerOverrideMessageShown then
-        self.status:AddMessage(
-            string.format(
-                TF.Loc["MESSAGE_PLAYER_OVERRIDE_USED"],
-                TradeFill:SetName(TF.state)
+    local playerOverrideUsage = TradeFill:GetActivePlayerOverrideUsage()
+
+    if playerOverrideUsage.hasOverride and TF.state and not TF.state.playerOverrideMessageShown then
+        if playerOverrideUsage.hasUsableOverride then
+            self.status:AddMessage(
+                string.format(
+                    TF.Loc["MESSAGE_PLAYER_OVERRIDE_USED"],
+                    TradeFill:SetName(TF.state)
+                )
             )
-        )
+        elseif playerOverrideUsage.hasTradeAnywayDisabled then
+            self.status:AddMessage(
+                string.format(
+                    TF.Loc["MESSAGE_PLAYER_OVERRIDE_TRADE_ANYWAY_DISABLED"],
+                    TradeFill:SetName(TF.state),
+                    TradeFill:SetColor(TF.Loc["PLAYER_OVERRIDE_TRADE_ANYWAY"], TF.colors.trade.anyway)
+                )
+            )
+        end
+
         TF.state.playerOverrideMessageShown = true
     end
 

@@ -51,9 +51,7 @@ function TradeFill:Item(frame)
 
     group:AddChild(refreshLimit)
 
-    --self:SetInfoLabel(AceGUI, group, TF.Loc["INFO_ITEMS"], TF.Loc["INFO_ITEMS_DESC"])
-
-    self:AddSpacer(AceGUI, group)
+    self:AddRowSpacer(AceGUI, group)
 
     for i = 1, MAX_TRADABLE_ITEMS do
         local tradeItem = self:GetItem(i)
@@ -229,15 +227,11 @@ function TradeFill:Item(frame)
 
         rowGroup:AddChild(dropdown)
 
-        local spacer = AceGUI:Create("Label")
-        spacer:SetWidth(10)
-        rowGroup:AddChild(spacer)
+        TradeFill:AddInlineSpacer(AceGUI, rowGroup, nil)
 
         rowGroup:AddChild(limitDropdown)
 
-        local rankSpacer = AceGUI:Create("Label")
-        rankSpacer:SetWidth(10)
-        rowGroup:AddChild(rankSpacer)
+        TradeFill:AddInlineSpacer(AceGUI, rowGroup, nil)
 
         local rank = AceGUI:Create("CheckBox")
         rank:SetLabel(TF.Loc["APPROPRIATE_RANK"])

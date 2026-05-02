@@ -32,9 +32,9 @@ function handlers.B(contentContainer, path)
         group:SetLayout("List")
 
         TradeFill:Allowed(contentContainer, group)
-        TradeFill:AddSpacer(AceGUI, group)
+        TradeFill:AddRowSpacer(AceGUI, group)
         TradeFill:Requirements(contentContainer, group)
-        TradeFill:AddSpacer(AceGUI, group)
+        TradeFill:AddRowSpacer(AceGUI, group)
         TradeFill:Rules(contentContainer, group)
 
         local frameWidget = contentContainer.frame
@@ -245,7 +245,6 @@ function TradeFill:Open()
     end
 
     if not TF.frame or not TF.frame:IsVisible() then
-        --self:GetAvailableItems()
         TradeFill:GetModule("InventoryManager"):GetAvailableItems()
         TF.frame = TradeFill:FrameModule()
         self:CreateTreeGroup(TF.frame)
