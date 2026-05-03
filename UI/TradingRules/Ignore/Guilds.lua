@@ -34,7 +34,7 @@ end
 function TradeFill:IgnoreGuilds(frame)
     local contentGroup = self:ContentGroup(AceGUI, frame)
     local group = self:Group(AceGUI, "SimpleGroup", contentGroup)
-    local guildColor = self:GetRGB(self:FormatColorText(TF.colors.filter.guild, ""))
+    local guildColor = self:GetRGB(self:FormatColorText(TF.colors.ignore.guild, ""))
 
     self:SetInfoLabel(
         AceGUI,

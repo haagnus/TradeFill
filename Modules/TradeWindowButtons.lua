@@ -21,6 +21,10 @@ local panelBackdrop = {
     insets = { left = 3, right = 3, top = 3, bottom = 3 }
 }
 
+local function IsAutoFillBusy()
+    return TF.state and (TF.state.autoFillActive or TF.state.isScanning or TF.state.isProcessingBags)
+end
+
 function TradeWindowButtons:OnInitialize()
     self.buttons = {}
     self.spellButtons = {}
@@ -684,7 +688,7 @@ function TradeWindowButtons:UpdateButtons()
         self.overrideButton:ClearAllPoints()
         self.overrideButton:SetPoint("RIGHT", GetTradeButtonAnchor(), "LEFT", -6, 0)
 
-        if self.playerTradeChanged and self:CurrentTradeDiffersFromGroup() then
+        if self.playerTradeChanged and not IsAutoFillBusy() and self:CurrentTradeDiffersFromGroup() then
             self.overrideButton:Enable()
             self.overrideButton:SetAlpha(1)
         else
@@ -717,6 +721,13 @@ function TradeWindowButtons:TRADE_CLOSED()
 end
 
 function TradeWindowButtons:TRADE_PLAYER_ITEM_CHANGED()
+    if IsAutoFillBusy() then
+        C_Timer.After(0.05, function()
+            self:UpdateButtons()
+        end)
+        return
+    end
+
     self.playerTradeChanged = true
     C_Timer.After(0.05, function()
         self:UpdateButtons()

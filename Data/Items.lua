@@ -90,6 +90,7 @@ TF.items = {
                 show = true,
                 status = false,
                 button = false,
+                oldIcon = false,
             },
 
             minimap = {

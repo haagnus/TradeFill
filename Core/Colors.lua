@@ -27,6 +27,11 @@ TF.colors = {
         master = "ffff00",
     },
 
+    ignore = {
+        player = "ff0000",
+        guild = "ff0000",
+    },
+
     tab = {
         main = "ffff00",
         ungrouped = "ffffff",
@@ -36,13 +41,14 @@ TF.colors = {
 
     addon = {
         signature = "88EEff",
-        on = "00ff00",
-        off = "ff0000",
+        enabled = "00ff00",
+        disabled = "ff0000",
         click = "ffff00",
         panel = "ffff00",
         message = "ffffff",
         open = "00ff00",
-        close = "ff0000"
+        close = "ff0000",
+        text = "374151"
     },
 
     minimap = {

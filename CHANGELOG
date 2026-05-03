@@ -1,5 +1,6 @@
 Version: 2.0.2
 	Changed addon icon
+	Changed color for ignored players and guilds
 	Added icon to the stack and size tabs
 	Added player-specific trade overrides that can save custom stack counts and stack sizes per player
 	Added a Save button to the trade window for storing the current trade setup as a player override

@@ -5,6 +5,18 @@ function TradeFill:SetColor(text, color)
     return "|cFF" .. color .. text .. "|r"
 end
 
+function TradeFill:GetAutofillIconPath(enabled)
+    local texture
+
+    if self:GetUi("oldIcon") then
+        texture = enabled and "Spell_Nature_Polymorph_Cow.tga" or "Spell_Nature_Polymorph_Cow_Red.tga"
+    else
+        texture = enabled and "Enable.tga" or "Disable.tga"
+    end
+
+    return "Interface\\AddOns\\" .. addonName .. "\\Images\\" .. texture
+end
+
 function TradeFill:GetClassHex(classFile)
     local _, _, _, argbHex = GetClassColor(classFile)
 

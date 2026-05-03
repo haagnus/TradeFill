@@ -45,13 +45,13 @@ end
 
 function MinimapModule:SetButtonOn()
     if self.dataObject then
-        self.dataObject.icon = "Interface\\AddOns\\" .. addonName .. "\\Images\\Enable.tga"
+        self.dataObject.icon = TradeFill:GetAutofillIconPath(true)
     end
 end
 
 function MinimapModule:SetButtonOff()
     if self.dataObject then
-        self.dataObject.icon = "Interface\\AddOns\\" .. addonName .. "\\Images\\Disable.tga"
+        self.dataObject.icon = TradeFill:GetAutofillIconPath(false)
     end
 end
 
@@ -59,7 +59,7 @@ function MinimapModule:DefaultsMinimap()
     return {
         type = "data source",
         text = "TradeFillMinimap",
-        icon = "Interface\\AddOns\\" .. addonName .. "\\Images\\Enable.tga",
+        icon = TradeFill:GetAutofillIconPath(TradeFill:GetTrade("auto")),
 
         OnTooltipShow = function(tooltip)
             self:UpdateTooltip(tooltip)

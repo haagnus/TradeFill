@@ -22,7 +22,8 @@ function TradeRulesGeneral:OnInitialize()
         if not set.trade.auto then
             return TradeRulesGeneral:Fail(string.format(
                 TF.Loc["MESSAGE_AUTOFILL"],
-                TradeFill:SetColor(TF.Loc["AUTOFILL"], TF.colors.trade.auto)
+                TradeFill:SetColor(TF.Loc["AUTOFILL"], TF.colors.trade.auto),
+                TradeFill:SetColor(TF.Loc["TEXT_DISABLED"], TF.colors.addon.disabled)
             ))
         end
 
@@ -148,7 +149,7 @@ function TradeRulesGeneral:OnInitialize()
             if string.lower(name) == string.lower(ctx.state.target.name) then
                 return TradeRulesGeneral:Fail(string.format(
                     TF.Loc["MESSAGE_IGNORE_PLAYERS"],
-                    TradeFill:SetName(TF.state)
+                    TradeFill:SetColor(TF.state.target.name, TF.colors.ignore.player)
                 ))
             end
         end
@@ -165,7 +166,7 @@ function TradeRulesGeneral:OnInitialize()
             if string.lower(name) == string.lower(guild) then
                 return TradeRulesGeneral:Fail(string.format(
                     TF.Loc["MESSAGE_IGNORE_GUILDS"],
-                    TradeFill:SetColor(guild, TF.colors.filter.guild)
+                    TradeFill:SetColor(guild, TF.colors.ignore.guild)
                 ))
             end
         end
@@ -197,4 +198,3 @@ function TradeRulesGeneral:CheckAll(context)
 
     return allOk
 end
-

@@ -7,6 +7,7 @@ function TF:ResetState()
         active = false,
         isScanning = false,
         isProcessingBags = false,
+        autoFillActive = false,
         needsQueueProcessing = false,
         isWatchingBags = false,
         manualFillActive = false,

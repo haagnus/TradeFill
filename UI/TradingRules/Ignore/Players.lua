@@ -32,7 +32,7 @@ end
 function TradeFill:IgnorePlayers(frame)
     local contentGroup = self:ContentGroup(AceGUI, frame)
     local group = self:Group(AceGUI, "SimpleGroup", contentGroup)
-    local playerColor = self:GetRGB(self:FormatColorText(TF.colors.filter.player, ""))
+    local playerColor = self:GetRGB(self:FormatColorText(TF.colors.ignore.player, ""))
 
     self:SetInfoLabel(
         AceGUI,

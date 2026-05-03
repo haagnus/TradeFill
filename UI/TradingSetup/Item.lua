@@ -243,7 +243,7 @@ function TradeFill:Item(frame)
                 TF.Loc["APPROPRIATE_RANK_DESC"],
                 self:SetClass("MAGE"),
                 self:SetClass("WARLOCK"),
-                self:SetColor(TF.Loc["TEXT_ENABLED"], TF.colors.addon.on)
+                self:SetColor(TF.Loc["TEXT_ENABLED"], TF.colors.addon.enabled)
             )
         )
 

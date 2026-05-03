@@ -15,17 +15,38 @@ function TradeExecutor:FillInstant(items, trade)
         end
     end
 
+    if #queue == 0 then
+        return
+    end
+
+    if TF.state then
+        TF.state.autoFillActive = true
+    end
+
     local queueIndex = 1
     local attempts = 0
 
+    local function Finish()
+        if TF.state then
+            TF.state.autoFillActive = false
+        end
+
+        local buttons = TradeFill:GetModule("TradeWindowButtons", true)
+        if buttons and buttons.UpdateButtons then
+            buttons:UpdateButtons()
+        end
+    end
+
     local function FillNext()
         if not TradeFrame or not TradeFrame:IsShown() then
+            Finish()
             return
         end
 
         local slot = queue[queueIndex]
 
         if not slot then
+            Finish()
             return
         end
 
@@ -39,6 +60,7 @@ function TradeExecutor:FillInstant(items, trade)
         local tradeSlot = TradeFrame_GetAvailableSlot()
 
         if not tradeSlot then
+            Finish()
             return
         end
 
