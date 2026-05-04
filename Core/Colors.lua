@@ -48,7 +48,6 @@ TF.colors = {
         message = "ffffff",
         open = "00ff00",
         close = "ff0000",
-        text = "374151"
     },
 
     minimap = {
@@ -57,6 +56,10 @@ TF.colors = {
         close = "ff0000",
         on = "00ff00",
         off = "ff0000"
+    },
+
+    text = {
+        gray = "808080"
     }
 
 }

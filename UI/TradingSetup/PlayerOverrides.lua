@@ -216,7 +216,7 @@ local function AddPlayerOverrideItemRow(self, parent, playerName, itemID, itemOv
     end)
     self:SetToolTipText(
         tradeAnyway,
-        isConfigured and TF.Loc["PLAYER_OVERRIDE_TRADE_ANYWAY_CONFIGURED_DESC"] or TF.Loc["PLAYER_OVERRIDE_TRADE_ANYWAY_DESC"]
+        isConfigured and TF.Loc["PLAYER_OVERRIDE_TRADE_ANYWAY_CONFIGURED_DESC"] or string.format(TF.Loc["PLAYER_OVERRIDE_TRADE_ANYWAY_DESC"], self:GetPlayerOverrideFullDisplayName(playerName))
     )
     row:AddChild(tradeAnyway)
 

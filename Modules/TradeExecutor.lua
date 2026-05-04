@@ -60,6 +60,7 @@ function TradeExecutor:FillInstant(items, trade)
         local tradeSlot = TradeFrame_GetAvailableSlot()
 
         if not tradeSlot then
+            TradeFill:GetModule("TradingStatusPanel"):AddMessage(TF.Loc["MESSAGE_FULL"])
             Finish()
             return
         end
