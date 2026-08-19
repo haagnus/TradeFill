@@ -67,8 +67,9 @@ function handlers.C(contentContainer, path)
 end
 
 function handlers.D(contentContainer, path)
-    if path[2] then
-        TradeFill:TradeLog(contentContainer, path[2])
+    if path[3] then
+        TradeFill:TradeLog(contentContainer, path[3])
+        return
     end
 
     TradeFill:TradeLogTotal(contentContainer)
@@ -106,15 +107,35 @@ function TradeFill:GetTreeData()
         children = playerOverrideChildren,
     }
 
+    local tradeLogYears = {}
+
     for timeStamp in pairs(TradeFill.tradelog.profile) do
+        local numericTimeStamp = tonumber(timeStamp)
+
+        if numericTimeStamp then
+            local year = date("%Y", numericTimeStamp)
+            tradeLogYears[year] = tradeLogYears[year] or {}
+            tradeLogYears[year][#tradeLogYears[year] + 1] = {
+                value = tostring(timeStamp),
+                text = date("%d %B, |cFFFFFFFF%H:%M|r", numericTimeStamp)
+            }
+        end
+    end
+
+    for year, children in pairs(tradeLogYears) do
+        table.sort(children, function(a, b)
+            return (tonumber(a.value) or 0) > (tonumber(b.value) or 0)
+        end)
+
         tradelogChildren[#tradelogChildren + 1] = {
-            value = timeStamp,
-            text = date("%d %B, |cFFFFFFFF%H:%M|r", timeStamp)
+            value = year,
+            text = year,
+            children = children,
         }
     end
 
     table.sort(tradelogChildren, function(a, b)
-        return a.value > b.value
+        return (tonumber(a.value) or 0) > (tonumber(b.value) or 0)
     end)
 
     return {
@@ -194,6 +215,16 @@ function TradeFill:CreateTreeGroup(frame)
 
     for playerName in pairs(self:GetPlayerOverrides()) do
         groups["C\001playerOverrides\001" .. playerName] = true
+    end
+
+    local currentYear = date("%Y")
+
+    for timeStamp in pairs(TradeFill.tradelog.profile) do
+        local numericTimeStamp = tonumber(timeStamp)
+
+        if numericTimeStamp and date("%Y", numericTimeStamp) == currentYear then
+            groups["D\001" .. currentYear] = true
+        end
     end
 
     tree:SetStatusTable({

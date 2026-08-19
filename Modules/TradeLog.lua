@@ -15,8 +15,29 @@ local function copyTradeItem(item)
     }
 end
 
+local function getTradeLogEntry(timeStamp)
+    local profile = TradeFill.tradelog and TradeFill.tradelog.profile
+
+    if type(profile) ~= "table" then
+        return nil
+    end
+
+    return profile[timeStamp] or profile[tostring(timeStamp)] or profile[tonumber(timeStamp)]
+end
+
+function TradeLog:GetEntry(timeStamp)
+    return getTradeLogEntry(timeStamp)
+end
+
 function TradeLog:DeleteEntry(timeStamp)
     TradeFill.tradelog.profile[timeStamp] = nil
+    TradeFill.tradelog.profile[tostring(timeStamp)] = nil
+
+    local numericTimeStamp = tonumber(timeStamp)
+
+    if numericTimeStamp then
+        TradeFill.tradelog.profile[numericTimeStamp] = nil
+    end
 end
 
 function TradeLog:Clear()
@@ -26,8 +47,13 @@ end
 function TradeLog:GetSortedEntries(timeStamp, unit)
     local moneyEntry
     local numericEntries = {}
+    local tradeLogEntry = self:GetEntry(timeStamp)
 
-    for tradedSlot, tradeItem in pairs(TradeFill.tradelog.profile[timeStamp][unit]) do
+    if type(tradeLogEntry) ~= "table" or type(tradeLogEntry[unit]) ~= "table" then
+        return {}
+    end
+
+    for tradedSlot, tradeItem in pairs(tradeLogEntry[unit]) do
         if tradedSlot == "money" then
             moneyEntry = { type = "money", value = tradeItem }
         elseif type(tonumber(tradedSlot)) == "number" then

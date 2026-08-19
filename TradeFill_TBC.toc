@@ -1,7 +1,7 @@
-## Interface: 20505
-## Title: TradeFill |c8788EEffv2.0.2|r
+## Interface: 20506
+## Title: TradeFill |c8788EEffv2.0.4|r
 ## Notes: Automatically fills the trade window with selected items and keeps track of your trade log
-## Version: 2.0.2
+## Version: 2.0.4
 ## Author: Mafkees - Pyrewood Village
 ## IconTexture: Interface\AddOns\TradeFill\Images\Enable.tga
 ## SavedVariables: TradeFillDB TradeFillHistoryDB TradeFillLimitDB

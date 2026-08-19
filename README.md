@@ -11,8 +11,6 @@ The addon also keeps a trade log, supports per-group trade setups, and adds help
   - Ungrouped players
   - Party members
   - Raid members
-- Save player-specific trade overrides for custom stack counts and stack sizes.
-- Use saved player overrides automatically on future trades.
 - Choose who can trigger autofill.
 - Add requirements such as guild membership or required player level.
 - Ignore specific players or guilds.
@@ -22,15 +20,6 @@ The addon also keeps a trade log, supports per-group trade setups, and adds help
 - Show trade buttons and a trading status panel in the trade window.
 - Track completed trades in a trade log.
 - Optional minimap button for quick access.
-
-## What's New in 2.0.2
-
-- Added player-specific trade overrides.
-- Added a trade-window Save button for storing the current trade as an override for that player.
-- Added a Player Overrides settings page to view, edit, and delete saved overrides.
-- Added Trade Anyway support so saved override items can still be traded even when they are not currently selected in Trading Setup.
-- Improved automatic filling with a queued retry flow for more reliable stack placement.
-- Updated the addon icon, ignored player/guild colors, tab icons, localization, saved data defaults, and TOC file lists.
 
 ## Supported Game Versions
 
@@ -69,12 +58,6 @@ Open the TradeFill settings with:
 
 You can also open the settings from the minimap button or from the game's addon options panel.
 
-### Player Overrides
-
-Player overrides let you save custom trade amounts for individual players. During a trade, adjust the items in the trade window to the amount you want for that player, then click `Save` in the trade window. TradeFill will use that saved setup automatically the next time you trade with the same player.
-
-Saved overrides can be edited or deleted from `Trading Setup` > `Player Overrides`. If an override contains an item that is no longer selected in `Trading Setup`, enable `Trade Anyway` for that item if you still want TradeFill to place it during that player's trades.
-
 ### Slash Commands
 
 ```text
@@ -92,7 +75,6 @@ TradeFill's settings window is organized into these sections:
 - `Bag Settings`: Choose which bags open while trading.
 - `Trading Rules`: Configure allowed players, requirements, special rules, ignored players, and ignored guilds.
 - `Trading Setup`: Select trade items and stack settings for each class/group setup.
-- `Player Overrides`: Review, edit, or delete saved player-specific trade amounts.
 - `Trade Log`: Review recorded trade history.
 
 ## Notes

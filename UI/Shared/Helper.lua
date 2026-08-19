@@ -95,23 +95,25 @@ local function GetItemOverrideKey(item)
     return tostring(item.id)
 end
 
-local function GetItemDataByID(itemID)
+local function GetItemDataByID(itemID, itemOverride)
     local numericID = tonumber(itemID)
 
     if not numericID or numericID <= 0 then
         return nil
     end
 
-    local name, link, quality, _, level, _, _, stack, _, texture = C_Item.GetItemInfo(numericID)
+    local saved = type(itemOverride) == "table" and itemOverride or {}
+    local savedLink = type(saved.link) == "string" and saved.link ~= "" and saved.link or nil
+    local name, link, quality, _, level, _, _, stack, _, texture = C_Item.GetItemInfo(savedLink or numericID)
 
     return {
         id = numericID,
-        name = name or string.format(TF.Loc["PLAYER_OVERRIDE_ITEM_ID"], numericID),
-        link = link or tostring(numericID),
-        quality = quality or 0,
-        level = level or 0,
-        stack = stack or 0,
-        texture = texture or 0,
+        name = name or saved.name or string.format(TF.Loc["PLAYER_OVERRIDE_ITEM_ID"], numericID),
+        link = link or savedLink or tostring(numericID),
+        quality = quality or saved.quality or 0,
+        level = level or saved.level or 0,
+        stack = stack or saved.maxStack or saved.stackSize or 0,
+        texture = texture or saved.texture or 0,
         limit = 0,
         playerOverrideTradeAnyway = true,
     }
@@ -436,6 +438,15 @@ function TradeFill:SetPlayerOverrideItem(playerName, itemID, stack, size)
         size = tonumber(size) or 0,
         tradeAnyway = type(existing) == "table" and existing.tradeAnyway or false,
     }
+
+    if type(existing) == "table" then
+        overrides[playerKey][itemKey].name = existing.name
+        overrides[playerKey][itemKey].link = existing.link
+        overrides[playerKey][itemKey].quality = existing.quality
+        overrides[playerKey][itemKey].level = existing.level
+        overrides[playerKey][itemKey].maxStack = existing.maxStack
+        overrides[playerKey][itemKey].texture = existing.texture
+    end
 end
 
 function TradeFill:SetPlayerOverrideItemTradeAnyway(playerName, itemID, enabled)
@@ -538,7 +549,7 @@ function TradeFill:PrepareTradeAnywayPlayerOverrides()
                 return
             end
 
-            local item = GetItemDataByID(itemID)
+            local item = GetItemDataByID(itemID, itemOverride)
 
             if item then
                 TF.runtimeItems[slot] = item

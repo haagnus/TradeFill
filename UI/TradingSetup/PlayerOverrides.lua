@@ -38,16 +38,21 @@ local function GetConfiguredItemByID(itemID)
     return nil
 end
 
-local function GetItemDisplay(itemID)
+local function GetItemDisplay(itemID, itemOverride)
     local configuredItem = GetConfiguredItemByID(itemID)
 
     if configuredItem and configuredItem.name and configuredItem.name ~= "" then
         return configuredItem.name, configuredItem.link, configuredItem.stack, configuredItem.texture
     end
 
-    local name, link, _, _, _, _, _, stack, _, texture = C_Item.GetItemInfo(tonumber(itemID) or itemID)
+    local saved = type(itemOverride) == "table" and itemOverride or {}
+    local savedLink = type(saved.link) == "string" and saved.link ~= "" and saved.link or nil
+    local name, link, _, _, _, _, _, stack, _, texture = C_Item.GetItemInfo(savedLink or tonumber(itemID) or itemID)
 
-    return name or string.format(TF.Loc["PLAYER_OVERRIDE_ITEM_ID"], itemID), link, stack or 0, texture
+    return name or saved.name or string.format(TF.Loc["PLAYER_OVERRIDE_ITEM_ID"], itemID),
+        link or savedLink,
+        stack or saved.maxStack or saved.stackSize or 0,
+        texture or saved.texture
 end
 
 local function SetOverrideItemTooltip(self, widget, itemLink, inactive)
@@ -137,7 +142,7 @@ local function AddPlayerOverrideItemRow(self, parent, playerName, itemID, itemOv
     row:SetLayout("Flow")
     row:SetFullWidth(true)
 
-    local itemName, itemLink, maxStack, texture = GetItemDisplay(itemID)
+    local itemName, itemLink, maxStack, texture = GetItemDisplay(itemID, itemOverride)
     local isConfigured = self:IsPlayerOverrideItemConfigured(itemID)
     maxStack = tonumber(maxStack) or 0
 

@@ -1,3 +1,13 @@
+Version: 2.0.4
+    Player Overrides now save item links and details for more reliable item lookup
+    Trade Log entries are now grouped by year, with only the current year expanded by default
+
+Version: 2.0.3
+	Fixed spell button
+	Bump for era 11509
+	Bump for TBC 20506
+	Bump for Mainline 120100
+
 Version: 2.0.2
 	Changed addon icon
 	Changed color for ignored players and guilds

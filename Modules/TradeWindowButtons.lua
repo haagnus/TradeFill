@@ -243,6 +243,16 @@ function TradeWindowButtons:TryFillAfterSpell(index, attempt)
         return
     end
 
+    local tradeSlot = TradeFrame_GetAvailableSlot()
+
+    if tradeSlot and self:PlaceSingleCreatedItem(index, tradeSlot) then
+        self.pendingFillRetry = nil
+        C_Timer.After(0.1, function()
+            self:UpdateButtons()
+        end)
+        return
+    end
+
     if currentAttempt >= 20 then
         self.pendingFillRetry = nil
         self:UpdateButtons()
@@ -290,6 +300,7 @@ function TradeWindowButtons:GetCurrentTradeSetup()
         local baseSize = TradeFill:GetBaseActiveGroupSize(tradeSlot)
         local count = 0
         local stackSize = baseSize
+        local tradeLink
 
         if item and item.id and item.id > 0 and item.name and item.name ~= "" and GetTradePlayerItemInfo then
             for playerSlot = 1, MAX_TRADABLE_ITEMS do
@@ -297,6 +308,7 @@ function TradeWindowButtons:GetCurrentTradeSetup()
 
                 if name == item.name then
                     count = count + 1
+                    tradeLink = GetTradePlayerItemLink and GetTradePlayerItemLink(playerSlot) or tradeLink
 
                     if tonumber(numItems) and tonumber(numItems) > 0 then
                         stackSize = tonumber(numItems)
@@ -304,9 +316,17 @@ function TradeWindowButtons:GetCurrentTradeSetup()
                 end
             end
 
+            local name, link, quality, _, level, _, _, maxStack, _, texture = C_Item.GetItemInfo(tradeLink or item.link or item.id)
+
             setup[tostring(item.id)] = {
                 stack = count,
                 size = stackSize or 0,
+                name = name or item.name,
+                link = link or tradeLink or item.link,
+                quality = quality or item.quality,
+                level = level or item.level,
+                maxStack = maxStack or item.stack,
+                texture = texture or item.texture,
             }
         end
     end
@@ -474,9 +494,12 @@ function TradeWindowButtons:EnsureButtons()
         self.buttons[currentTradeSlot] = button
 
         local spellButtonName = addonName .. "TradeSpellButton" .. tradeSlot
-        local spellButton = CreateFrame("Button", spellButtonName, background, "SecureActionButtonTemplate,UIPanelButtonTemplate")
+        local spellButton = CreateFrame("Button", spellButtonName, background, "SecureActionButtonTemplate")
         spellButton:SetSize(32, 32)
         spellButton:RegisterForClicks("LeftButtonUp")
+        spellButton:EnableMouse(true)
+        spellButton:SetFrameLevel(button:GetFrameLevel() + 2)
+        spellButton:SetAttribute("useOnKeyDown", false)
         spellButton:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
         spellButton:SetPoint("BOTTOM", background, "BOTTOM", -12, buttonOffsets[currentTradeSlot])
 
@@ -656,8 +679,10 @@ function TradeWindowButtons:UpdateButtons()
                 spellButton.icon:SetTexture(tradeItem.texture or C_Item.GetItemIconByID(tradeItem.id))
                 spellButton.count:SetText(availableStacks)
                 spellButton.icon:SetDesaturated(false)
-                spellButton:SetAttribute("type", "spell")
-                spellButton:SetAttribute("spell", spellID)
+                spellButton:SetAttribute("type", nil)
+                spellButton:SetAttribute("spell", nil)
+                spellButton:SetAttribute("type1", "spell")
+                spellButton:SetAttribute("spell1", spellID)
                 spellButton:Enable()
                 spellButton:SetAlpha(1)
                 spellButton:Show()
@@ -667,6 +692,8 @@ function TradeWindowButtons:UpdateButtons()
                 spellButton.itemID = nil
                 spellButton:SetAttribute("type", nil)
                 spellButton:SetAttribute("spell", nil)
+                spellButton:SetAttribute("type1", nil)
+                spellButton:SetAttribute("spell1", nil)
                 spellButton:Hide()
                 button:Show()
             end
@@ -675,6 +702,8 @@ function TradeWindowButtons:UpdateButtons()
             spellButton.itemID = nil
             spellButton:SetAttribute("type", nil)
             spellButton:SetAttribute("spell", nil)
+            spellButton:SetAttribute("type1", nil)
+            spellButton:SetAttribute("spell1", nil)
             spellButton:Hide()
             button:Hide()
         end

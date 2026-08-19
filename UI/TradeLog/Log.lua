@@ -170,11 +170,17 @@ end
 
 function TradeFill:TradeLog(frame, timeStamp)
     local tradelogModule = self:GetModule("TradeLog")
+    local tradeLogEntry = tradelogModule:GetEntry(timeStamp)
+
+    if type(tradeLogEntry) ~= "table" then
+        return
+    end
+
     local contentGroup = self:ContentGroup(AceGUI, frame)
     contentGroup:SetUserData("timeStamp", timeStamp)
 
-    local playerName = self.tradelog.profile[timeStamp].player
-    local targetName = self.tradelog.profile[timeStamp].target
+    local playerName = tradeLogEntry.player
+    local targetName = tradeLogEntry.target
 
     local firstGroup = self:Group(AceGUI, "InlineGroup", contentGroup)
     firstGroup:SetTitle(playerName)
@@ -212,6 +218,7 @@ end
 
 function TradeFill:GetTradeLogEntries(AceGUIInstance, widget, timeStamp, unit)
     local tradelogModule = self:GetModule("TradeLog")
+    local tradeLogEntry = tradelogModule:GetEntry(timeStamp)
 
     for _, entry in ipairs(tradelogModule:GetSortedEntries(timeStamp, unit)) do
         local tradeItem = entry.value
@@ -244,8 +251,8 @@ function TradeFill:GetTradeLogEntries(AceGUIInstance, widget, timeStamp, unit)
             else
                 local _, itemLink = C_Item.GetItemInfo(tradeItem.name)
 
-                if itemLink then
-                    self.tradelog.profile[timeStamp][unit][tostring(entry.index)].link = itemLink
+                if itemLink and tradeLogEntry and tradeLogEntry[unit] and tradeLogEntry[unit][tostring(entry.index)] then
+                    tradeLogEntry[unit][tostring(entry.index)].link = itemLink
                     self:SetToolTipLink(label, itemLink)
                 end
             end
@@ -273,8 +280,8 @@ function TradeFill:GetTradeLogEntries(AceGUIInstance, widget, timeStamp, unit)
             else
                 local _, itemLink = C_Item.GetItemInfo(tradeItem.name)
 
-                if itemLink then
-                    self.tradelog.profile[timeStamp][unit][tostring(entry.index)].link = itemLink
+                if itemLink and tradeLogEntry and tradeLogEntry[unit] and tradeLogEntry[unit][tostring(entry.index)] then
+                    tradeLogEntry[unit][tostring(entry.index)].link = itemLink
                     self:SetToolTipLink(label, itemLink)
                 end
             end
