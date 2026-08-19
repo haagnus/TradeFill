@@ -1,3 +1,6 @@
+Version: 2.0.5
+	Update Libs/AceGUI-3.0/widgets/AceGUIWidget-CheckBox.lua, for Retail wow
+
 Version: 2.0.4
     Player Overrides now save item links and details for more reliable item lookup
     Trade Log entries are now grouped by year, with only the current year expanded by default
