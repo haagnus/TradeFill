@@ -1,0 +1,76 @@
+## Interface: 40402
+## Title: TradeFill |c8788EEffv2.0.6|r
+## Notes: Automatically fills the trade window with selected items and keeps track of your trade log
+## Version: 2.0.6
+## Author: Mafkees - Pyrewood Village
+## IconTexture: Interface\AddOns\TradeFill\Images\Enable.tga
+## SavedVariables: TradeFillDB TradeFillHistoryDB TradeFillLimitDB
+## OptionalDeps: Ace3, LibDataBroker-1.1, LibDBIcon-1.0
+
+## Libraries
+libraries.xml
+
+## Bootstrap
+Core/Migrations.lua
+Core/Init.lua
+Core/Colors.lua
+Core/State.lua
+Core/Utils.lua
+Core/Actions.lua
+
+## Localization
+Locales/TradeFill-enUS.lua
+
+## Data
+Data/Classes/Cata.lua
+Data/Spellrank/Vanilla.lua
+Data/Spellrank/TBC.lua
+Data/Spellrank/Wrath.lua
+Data/Spellrank/Cata.lua
+Data/Items.lua
+Data/Limit.lua
+Data/TradeLog.lua
+
+## Services
+Services/PlayerService.lua
+Services/LimitService.lua
+
+## Rules
+Rules/General.lua
+Rules/Items.lua
+Rules/Evaluator.lua
+
+## Modules - Trade Flow
+Modules/Trade.lua
+Modules/TradeSession.lua
+Modules/TradeExecutor.lua
+Modules/TradeLog.lua
+Modules/InventoryManager.lua
+Modules/BagOpener.lua
+Modules/TradeController.lua
+
+## Modules - UI Integration
+Modules/TradingStatusPanel.lua
+Modules/TradeWindowButtons.lua
+Modules/Minimap.lua
+
+## UI
+UI/Shared/Utils.lua
+UI/Shared/Helper.lua
+UI/Shared/Widgets.lua
+UI/UIManager.lua
+
+UI/General/General.lua
+UI/General/BagSettings.lua
+
+UI/TradingRules/Allowed.lua
+UI/TradingRules/Requirements.lua
+UI/TradingRules/Rules.lua
+UI/TradingRules/Ignore/Players.lua
+UI/TradingRules/Ignore/Guilds.lua
+
+UI/TradingSetup/Item.lua
+UI/TradingSetup/Stack.lua
+UI/TradingSetup/PlayerOverrides.lua
+
+UI/TradeLog/Log.lua
